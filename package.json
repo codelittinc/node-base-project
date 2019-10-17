@@ -1,0 +1,22 @@
+{
+  "name": "node-graphq-base",
+  "version": "0.0.1",
+  "description": "A starter for Node-Apollo-GraphQL projects",
+  "main": "server.js",
+  "engines": {
+    "node": "v8.11.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
