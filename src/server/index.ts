@@ -1,5 +1,6 @@
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
+import { setupRoutes } from './routes'
 
 export function getApp() {
   const { SERVER_PARSER_EXTENDED, SERVER_PARSER_LIMIT } = process.env;
@@ -11,6 +12,8 @@ export function getApp() {
   }))
 
   app.use(bodyParser.json())
+
+  setupRoutes(app)
 
   return app;
 }
