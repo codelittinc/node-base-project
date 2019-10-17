@@ -2,15 +2,19 @@ import * as express from 'express'
 import * as dotenv from 'dotenv'
 import * as bodyParser from 'body-parser'
 
-dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env" });
 
-
+const { SERVER_PORT, SERVER_PARSER_EXTENDED, SERVER_PARSER_LIMIT } = process.env;
 const app = express()
 
-app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }))
+app.use(bodyParser.urlencoded({ 
+  extended: SERVER_PARSER_EXTENDED === "true", 
+  limit: SERVER_PARSER_LIMIT || '2mb',
+}))
+
 app.use(bodyParser.json())
 
-const PORT = process.env.SERVER_PORT || 8080;
+const PORT = SERVER_PORT || 9090;
 
 app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);

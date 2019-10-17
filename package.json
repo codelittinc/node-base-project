@@ -9,16 +9,16 @@
   "scripts": {
     "lint": "tslint",
     "build:tsc": "tsc",
-    "start": "npm run build:tsc && node src/server.js",
-    "server": "nodemon"
+    "start": "nodemon",
+    "server": "npm run build:tsc && node src/server.js"
   },
   "nodemonConfig": {
     "watch": [
       "src",
       "public",
-      ".env.local"
+      ".env"
     ],
-    "exec": "npm run start",
+    "exec": "npm run server",
     "ext": "ts"
   },
   "author": "",
