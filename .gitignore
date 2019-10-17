@@ -69,3 +69,4 @@ typings/
 
 migrations/**/*.js*
 src/**/*.js*
+*.js*
