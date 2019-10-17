@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "tslint",
     "build:tsc": "tsc",
-    "start": "npm run build:tsc && node src/server.js",
+    "start": "npm run build:tsc && node index.js",
     "start-dev": "nodemon"
   },
   "nodemonConfig": {
