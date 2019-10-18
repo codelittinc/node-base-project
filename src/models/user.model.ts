@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { database } from "../config/initializers/database";
+import { database } from "../db";
 
 export class User extends Model {
   public id!: number;
@@ -26,4 +26,8 @@ User.init(
     }
 );
   
-User.sync({ force: true });
+User.sync({ force: false });
+
+export interface UserInterface {
+  name: string;
+}

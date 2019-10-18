@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { loadEnvVars } from './env_vars';
+import { loadEnvVars } from '../config/initializers/env_vars';
 
 loadEnvVars();
 
