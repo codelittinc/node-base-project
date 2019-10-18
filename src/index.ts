@@ -1,5 +1,5 @@
-import { applyConfig } from './config'
-import { getApp } from './server'
+import { applyConfig } from './config';
+import { getApp } from './server';
 
 export function start() {
   applyConfig();
