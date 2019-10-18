@@ -10,7 +10,8 @@
     "lint": "tslint **/*.ts",
     "build:tsc": "tsc",
     "start": "npm run build:tsc && node index.js",
-    "start-dev": "nodemon"
+    "start-dev": "nodemon",
+    "test": "jest test"
   },
   "nodemonConfig": {
     "watch": [
@@ -39,8 +40,11 @@
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.28",
+    "@types/jest": "^24.0.19",
     "@types/sequelize": "^4.28.6",
     "@types/validator": "^10.11.3",
-    "nodemon": "^1.17.5"
+    "jest": "^24.9.0",
+    "nodemon": "^1.17.5",
+    "ts-jest": "^24.1.0"
   }
 }
