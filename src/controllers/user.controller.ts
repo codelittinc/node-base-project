@@ -1,12 +1,8 @@
+import { User } from "../models/user.model";
+
 export default class UsersController {
-    static getUsers(_, res) {
-        // @TODO: refactor to use database
-        res.send([
-            {
-                id: 1,
-                name: 'test user'
-            }
-        ])
+    static async getUsers(_, res) {
+        res.send(await User.findAll<User>({}))
     }
 
     static createUser(req, res) {
