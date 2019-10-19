@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 
 export function loadEnvVars() {
-  dotenv.config({ path: '.env' })
+  dotenv.config({ path: '.env' });
 }
