@@ -20,7 +20,7 @@ describe('UsersController', () => {
   });
 
   describe('GET /users/:id', () => {
-    xit('returns the user', async () => {
+    it('returns the user', async () => {
       const userData = {
         name: 'user test'
       };

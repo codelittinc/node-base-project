@@ -1,6 +1,6 @@
 import { loadEnvVars } from '../config/initializers/envVars';
 
-const getConfig = () => {
+export function getDatabaseConfig() {
   const { DB_DATABASE, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
   const base = {
     user: DB_USER || 'postgres',
@@ -34,10 +34,16 @@ const getConfig = () => {
   return development;
 };
 
+export function getConnURIWithDatabaseName() {
+  const { databaseName } = getDatabaseConfig();
+
+  return `${getConnURI()}/${databaseName}`;
+}
+
 export function getConnURI() {
   loadEnvVars();
 
-  const { user, pass, host, databaseName } = getConfig();
+  const { user, pass, host} = getDatabaseConfig();
 
-  return `postgres://${user}:${pass}@${host}:5432/${databaseName}`;
+  return `postgres://${user}:${pass}@${host}:5432`;
 }
