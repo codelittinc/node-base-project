@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "sequelize";
-import { database } from "../db";
+import { Model, DataTypes } from 'sequelize';
+import { database } from '../db';
 
 export class User extends Model {
   public id!: number;
@@ -9,25 +9,25 @@ export class User extends Model {
 }
 
 User.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-      },
-      name: {
-        type: new DataTypes.STRING(128),
-        allowNull: false
-      }
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
     },
-    {
-      tableName: "users",
-      sequelize: database,
+    name: {
+      type: new DataTypes.STRING(128),
+      allowNull: false
     }
+  },
+  {
+    tableName: 'users',
+    sequelize: database
+  }
 );
-  
+
 User.sync({ force: false });
 
 export interface UserInterface {
   name: string;
-}
+};

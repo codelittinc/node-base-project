@@ -3,13 +3,13 @@ import UserService from '../../src/services/db/user.service';
 import * as request from 'supertest';
 
 describe('UsersController', () => {
-  /* @TODO: add transactional feature to tests before adding this test
   describe('GET /users', () => {
     it('returns list of users', async () => {
       const userData = {
         name: 'user test'
       };
-      UserService.create(userData);
+
+      await UserService.create(userData);
 
       const { body } = await request(getApp())
         .get(`/users`)
