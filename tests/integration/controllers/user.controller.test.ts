@@ -1,5 +1,5 @@
-import { getApp } from '../../src/server';
-import UserService from '../../src/services/db/user.service';
+import { getApp } from '../../../src/server';
+import UserService from '../../../src/services/db/user.service';
 import * as request from 'supertest';
 
 describe('UsersController', () => {
@@ -18,7 +18,6 @@ describe('UsersController', () => {
       return expect(body[0].name).toBe(userData.name);
     });
   });
-  */
 
   describe('GET /users/:id', () => {
     it('returns the user', async () => {

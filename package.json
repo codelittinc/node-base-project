@@ -11,7 +11,9 @@
     "build:tsc": "tsc",
     "start": "npm run build:tsc && node index.js",
     "start-dev": "nodemon",
-    "test": "jest test"
+    "test:unit": "jest test -c jest.unit.config.js",
+    "test:integration": "jest test -c jest.integration.config.js",
+    "test:all": "npm run test:unit && npm run test:integration"
   },
   "nodemonConfig": {
     "watch": [

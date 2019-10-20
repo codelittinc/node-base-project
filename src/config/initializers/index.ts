@@ -1,5 +1,5 @@
-import { loadEnvVars } from './env_vars';
+import { loadEnvVars } from './envVars';
 
 export function initialize() {
-    loadEnvVars();
+  loadEnvVars();
 }
