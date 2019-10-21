@@ -1,20 +1,32 @@
 import { Pool } from 'pg';
 
-import {
-  getConnURIWithDatabaseName,
-  getDatabaseConfig
-} from '../../src/db/credentials';
+import { getConnURI, getDatabaseConfig } from '../../src/db/credentials';
+import { loadEnvVars } from '../../src/config/initializers/envVars';
 
-export function createDatabase() {
+export async function createDatabase() {
+  loadEnvVars();
+
   const { databaseName } = getDatabaseConfig();
 
   const pool = new Pool({
-    connectionString: getConnURIWithDatabaseName()
+    connectionString: `${getConnURI()}/postgres`
   });
 
-  pool.query('CREATE DATABASE ' + databaseName, err => {
-    console.log('Error while creating database: ' + err);
-  });
+  console.log(`Creating database ${databaseName}`);
+
+  const result = await pool.query(
+    `SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('${databaseName}');`
+  );
+
+  if (result.rowCount === 0) {
+    try {
+      await pool.query(`CREATE DATABASE ${databaseName}`);
+    } catch (err) {
+      console.log('There was an error while creating database', err);
+    }
+  } else {
+    console.log('Database already exists.');
+  }
 }
 
 createDatabase();

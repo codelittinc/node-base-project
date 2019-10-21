@@ -6,9 +6,13 @@ This is basic nodejs + graphQl project starter
 
 ## Installation
 
+This base project is intended to be used with db ownership from the developer so there are multiple scripts created to manage the database.
+
+### Plug & Play
+
 * clone this project and access the folder where you cloned it
 * `make config` creates an `env` file with the example config
-* `make start` starts the docker environment
+* `make start.all` starts the docker environment
 * visit `http://localhost:9090`
 
 ### Running from you local env with docker database
@@ -16,8 +20,27 @@ This is basic nodejs + graphQl project starter
 You can run the project from your local environemnt, using a dockerized postgres database configured for that!
 
 * `make db` starts the docker db environment
+* `make db.create` setups & migrates the app's database
 * `npm start` starts the server
 
+
+## Makefile
+
+The project comes with a `Makefile` created to run usefull commands.
+The following are the current command list:
+- `start.dev`: runs docker-compose containers, and starts bash. (Database will be not populated you will need to run extra commands)
+- `start`: same as `start.dev` but it will run the server
+- `build`: builds the docker-compose containers
+- `config`: creates a basic env file to run your server, no sensible keys are available
+- `db`: starts the database container
+- `db.setup / db.setup.test`: creates the database if it not exists for dev / test environment
+- `db.create / db.create.test`: creates & execute migrations of the database if it not exists for dev / test environment
+
+Execute a command via:
+
+```shell
+make <command>
+```
 
 ## Migrations
 
@@ -27,7 +50,7 @@ This files are required to be stored as `DATE.NAME.up.sql`. Where `DATE` is the 
 To speed things up you can create a new migration doing:
 
 ```
-make dbmigration.create name="properties"
+make db-migrate-create name="properties"
 ```
 
 This will generate two files, `yyyyymmdd.properties.up.sql` and  `yyyyymmdd.properties.down.sql`.  

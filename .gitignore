@@ -67,7 +67,7 @@ typings/
 .serverless
 
 
-migrations/**/*.js*
+scripts/**/*.js*
 src/**/*.js*
 tests/**/*.js*
 index.js*

@@ -15,7 +15,7 @@ export function getDatabaseConfig() {
 
   const test = {
     ...base,
-    databaseName: `${base.databaseName}_test`
+    databaseName: DB_DATABASE || `${base.databaseName}_test`
   };
 
   const production = {
@@ -31,9 +31,11 @@ export function getDatabaseConfig() {
   }
 
   return development;
-};
+}
 
 export function getConnURIWithDatabaseName() {
+  loadEnvVars();
+
   const { databaseName } = getDatabaseConfig();
 
   return `${getConnURI()}/${databaseName}`;
