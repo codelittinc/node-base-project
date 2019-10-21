@@ -1,4 +1,4 @@
-import * as models from '../../../src/models';
+import * as models from '@models';
 
 export async function clearDB() {
   return await Promise.all(

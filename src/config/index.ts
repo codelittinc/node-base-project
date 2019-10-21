@@ -1,6 +1,6 @@
 import { initialize } from './initializers';
 import { applyEnvironmentConfig } from './environment';
-import { getDatabaseConfig } from '../db/credentials';
+import { getDatabaseConfig } from '@db/credentials';
 
 export function applyConfig() {
   initialize();

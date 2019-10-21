@@ -1,4 +1,4 @@
-import { loadEnvVars } from '../../../../src/config/initializers/envVars';
+import { loadEnvVars } from '@config/initializers/envVars';
 
 describe('#loadEnvVars', () => {
   it('loads the DB_DATABASE variable', () => {

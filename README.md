@@ -12,6 +12,7 @@ This base project is intended to be used with db ownership from the developer so
 
 * clone this project and access the folder where you cloned it
 * `make config` creates an `env` file with the example config
+* `npm i -g typescript` to install on your local environment typescript
 * `make start.all` starts the docker environment
 * visit `http://localhost:9090`
 

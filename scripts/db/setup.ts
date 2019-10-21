@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 
-import { getConnURI, getDatabaseConfig } from '../../src/db/credentials';
-import { loadEnvVars } from '../../src/config/initializers/envVars';
+import { getConnURI, getDatabaseConfig } from '@db/credentials';
+import { loadEnvVars } from '@config/initializers/envVars';
 
 export async function createDatabase() {
   loadEnvVars();
