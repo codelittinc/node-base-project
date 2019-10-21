@@ -1,2 +1,1 @@
-export function applyTestConfig() {
-}
+export function applyTestConfig() {}

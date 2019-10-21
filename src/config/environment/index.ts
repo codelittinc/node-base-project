@@ -8,10 +8,10 @@ export function applyEnvironmentConfig() {
 
   applyBaseConfig();
   if (NODE_ENV === 'production') {
-      applyProductionConfig()
+    applyProductionConfig();
   } else if (NODE_ENV === 'test') {
-      applyTestConfig()
+    applyTestConfig();
   } else {
-      applyDevelopmentConfig();
+    applyDevelopmentConfig();
   }
 }
