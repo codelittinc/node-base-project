@@ -16,6 +16,15 @@
     "test:integration": "jest test -c jest.integration.config.js",
     "test:all": "npm run test:unit && npm run test:integration"
   },
+  "_moduleAliases": {
+    "@controllers": "./src/controllers",
+    "@services": "src/services",
+    "@models": "src/models",
+    "@db": "src/db",
+    "@config": "src/config",
+    "@server": "src/server",
+    "@tests": "tests"
+  },
   "nodemonConfig": {
     "watch": [
       "src",
@@ -33,6 +42,7 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "lodash.isempty": "^4.4.0",
+    "module-alias": "^2.2.2",
     "pg": "^7.12.1",
     "prettier": "^1.18.2",
     "sequelize": "^5.20.0",

@@ -1,4 +1,4 @@
-import { loadEnvVars } from '../config/initializers/envVars';
+import { loadEnvVars } from '@config/initializers/envVars';
 
 export function getDatabaseConfig() {
   const { DB_DATABASE, DB_USER, DB_PASSWORD, DB_HOST } = process.env;

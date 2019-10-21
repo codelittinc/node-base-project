@@ -1,4 +1,6 @@
-import { applyConfig } from './config';
+import 'module-alias/register';
+
+import { applyConfig } from '@config';
 import { getApp } from './server';
 
 export async function start() {

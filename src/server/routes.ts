@@ -1,4 +1,4 @@
-import UsersController from '../controllers/user.controller';
+import UsersController from '@controllers/user.controller';
 
 export function setupRoutes(app) {
   // /users

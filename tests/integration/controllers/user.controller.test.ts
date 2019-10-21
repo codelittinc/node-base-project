@@ -1,5 +1,5 @@
-import { getApp } from '../../../src/server';
-import UserService from '../../../src/services/db/user.service';
+import { getApp } from '@server';
+import UserService from '@services/db/user.service';
 import * as request from 'supertest';
 
 describe('UsersController', () => {

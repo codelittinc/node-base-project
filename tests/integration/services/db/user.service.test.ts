@@ -1,5 +1,5 @@
-import UsersService from '../../../../src/services/db/user.service';
-import { UserInterface } from '../../../../src/models/user.model';
+import UsersService from '@services/db/user.service';
+import { UserInterface } from '@models/user.model';
 
 describe('#create', () => {
   it('returns a User with an id', () => {

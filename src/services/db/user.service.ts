@@ -1,5 +1,5 @@
 import { UpdateOptions, DestroyOptions } from 'sequelize';
-import { User, UserInterface } from '../../models/user.model';
+import { User, UserInterface } from '@models/user.model';
 
 export default class UsersService {
   static async findAll(): Promise<User[] | null> {
