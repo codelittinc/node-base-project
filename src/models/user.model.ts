@@ -1,7 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { database } from '@db';
+import BaseModel from './base.model';
 
-export class User extends Model {
+export class User extends BaseModel {
   public id!: number;
   public name!: string;
   public readonly createdAt!: Date;
@@ -25,7 +26,3 @@ User.init(
     sequelize: database
   }
 );
-
-export interface UserInterface {
-  name: string;
-}
