@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
-import { getConnURI } from './credentials';
+import { getConnURIWithDatabaseName } from './credentials';
 
-export const database = new Sequelize(getConnURI(), {
+export const database = new Sequelize(getConnURIWithDatabaseName(), {
   dialect: 'postgres'
 });
