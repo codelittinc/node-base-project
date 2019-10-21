@@ -1,5 +1,5 @@
 // TODO: Properly organize this file
-
+TODAY = $(shell date +%Y%m%d)
 default: start-dev
 
 start-dev:
@@ -25,3 +25,8 @@ db-setup:
 
 db-setup-test:
   npm run build:tsc && NODE_ENV=test node scripts/db/setup.js
+	docker-compose up --remove-orphans -d db 
+
+dbmigration.create:
+	touch ./src/db/migrations/$(TODAY).$(name).up.sql
+	touch ./src/db/migrations/$(TODAY).$(name).down.sql
