@@ -26,8 +26,6 @@ User.init(
   }
 );
 
-User.sync({ force: false });
-
 export interface UserInterface {
   name: string;
-};
+}

@@ -7,6 +7,7 @@
     "node": "v8.11.1"
   },
   "scripts": {
+    "db:migrate": "node ./scripts/migrate.js",
     "lint": "tslint **/*.ts",
     "build:tsc": "tsc",
     "start": "npm run build:tsc && node index.js",
@@ -31,6 +32,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "lodash.isempty": "^4.4.0",
     "pg": "^7.12.1",
     "prettier": "^1.18.2",
     "sequelize": "^5.20.0",
@@ -38,11 +40,13 @@
     "tslint": "^5.10.0",
     "tslint-language-service": "^0.9.9",
     "tslint-plugin-prettier": "^1.3.0",
-    "typescript": "^3.5.0"
+    "typescript": "^3.5.0",
+    "umzug": "^2.2.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.28",
     "@types/jest": "^24.0.19",
+    "@types/node": "^12.11.1",
     "@types/sequelize": "^4.28.6",
     "@types/supertest": "^2.0.8",
     "@types/validator": "^10.11.3",

@@ -5,22 +5,21 @@ export function getDatabaseConfig() {
   const base = {
     user: DB_USER || 'postgres',
     pass: DB_PASSWORD || 'postgres',
-    host: DB_HOST
+    host: DB_HOST,
+    databaseName: DB_DATABASE || 'node_graphql'
   };
 
   const development = {
-    ...base,
-    databaseName: 'node_graphql_dev'
+    ...base
   };
 
   const test = {
     ...base,
-    databaseName: 'node_graphql_test'
+    databaseName: `${base.databaseName}_test`
   };
 
   const production = {
-    ...base,
-    databaseName: DB_DATABASE || 'node_graphql'
+    ...base
   };
 
   const { NODE_ENV } = process.env;
