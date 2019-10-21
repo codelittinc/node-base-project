@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import UserService from '../services/db/user.service';
-import { UserInterface } from '../models/user.model';
+import UserService from '@services/db/user.service';
+import { UserInterface } from '@models/user.model';
 
 export default class UsersController {
   static async findAll(_: Request, res: Response) {

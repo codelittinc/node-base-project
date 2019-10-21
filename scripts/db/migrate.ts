@@ -1,6 +1,6 @@
 import * as path from 'path';
-import getMigrationsConfig from '../../src/config/initializers/migrations';
-import { getConfig } from '../../src/config';
+import getMigrationsConfig from '@config/initializers/migrations';
+import { getConfig } from '@config';
 const child_process = require('child_process');
 
 function logUmzugEvent(eventName) {

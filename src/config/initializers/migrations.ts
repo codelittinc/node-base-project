@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as Umzug from 'umzug';
-import { database } from '../../db';
+import { database } from '@db';
 import { Sequelize } from 'sequelize';
 import { loadEnvVars } from './envVars';
 
