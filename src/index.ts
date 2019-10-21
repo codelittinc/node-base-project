@@ -6,7 +6,7 @@ export async function start() {
     `Starting server in mode: ${process.env.NODE_ENV || 'development'}`
   );
 
-  applyConfig();
+  await applyConfig();
 
   const app = getApp();
 
