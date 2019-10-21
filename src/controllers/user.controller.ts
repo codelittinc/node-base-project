@@ -5,12 +5,12 @@ import { UserInterface } from '@models/user.model';
 
 export default class UsersController {
   static async findAll(_: Request, res: Response) {
-    res.send(await UserService.findAll());
+    res.send(await new UserService().findAll());
   }
 
   static async find(req: Request, res: Response) {
     const userId: number = parseInt(req.params.id);
-    const user = await UserService.findOne(userId);
+    const user = await new UserService().findOne(userId);
     if (user) {
       res.json(user);
     } else {
@@ -20,19 +20,19 @@ export default class UsersController {
 
   static async create(req: Request, res: Response) {
     const user: UserInterface = req.body;
-    res.send(await UserService.create(user));
+    res.send(await new UserService().create(user));
   }
 
   static async update(req: Request, res: Response) {
     const userId: number = parseInt(req.params.id);
-    const user: UserInterface = req.body;
-    await UserService.update(userId, user);
+    const user = req.body;
+    await new UserService().update(userId, user);
     res.json();
   }
 
   static async delete(req: Request, res: Response) {
     const userId: number = parseInt(req.params.id);
-    await UserService.delete(userId);
+    await new UserService().delete(userId);
     res.json();
   }
 }
