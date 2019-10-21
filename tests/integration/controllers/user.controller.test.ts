@@ -1,5 +1,5 @@
 import { getApp } from '@server';
-import UserService from '@services/db/user.service';
+import { User } from '@models';
 import * as request from 'supertest';
 
 describe('UsersController', () => {
@@ -9,7 +9,7 @@ describe('UsersController', () => {
         name: 'user test'
       };
 
-      await UserService.create(userData);
+      await User.create(userData);
 
       const { body } = await request(getApp())
         .get(`/users`)
@@ -24,7 +24,7 @@ describe('UsersController', () => {
       const userData = {
         name: 'user test'
       };
-      const user = await UserService.create(userData);
+      const user = await User.create(userData);
 
       const { body } = await request(getApp())
         .get(`/users/${user!.id}`)
