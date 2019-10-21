@@ -2,7 +2,14 @@
     "extends": ["tslint-plugin-prettier"],
     "rules": {
       "no-commented-out-code": false,
-      "prettier": [true, { "printWidth": 80, "singleQuote": true, "semi": true }]
+      "prettier": [
+        true, 
+        { 
+          "printWidth": 80,
+          "singleQuote": true,
+          "semi": true
+        }
+      ]
     },
     "linterOptions": {
       "exclude": ["./**/*.js"]
