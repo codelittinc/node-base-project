@@ -1,2 +1,1 @@
-export function applyProductionConfig() {
-}
+export function applyProductionConfig() {}

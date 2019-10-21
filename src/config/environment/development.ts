@@ -1,2 +1,1 @@
-export function applyDevelopmentConfig() {
-}
+export function applyDevelopmentConfig() {}

@@ -43,7 +43,7 @@ export function getConnURIWithDatabaseName() {
 export function getConnURI() {
   loadEnvVars();
 
-  const { user, pass, host} = getDatabaseConfig();
+  const { user, pass, host } = getDatabaseConfig();
 
   return `postgres://${user}:${pass}@${host}:5432`;
 }

@@ -1,2 +1,1 @@
-export function applyBaseConfig() {
-}
+export function applyBaseConfig() {}
