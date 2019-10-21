@@ -25,7 +25,3 @@ User.init(
     sequelize: database
   }
 );
-
-export interface UserInterface {
-  name: string;
-}

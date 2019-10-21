@@ -1,17 +1,14 @@
 import { UpdateOptions, DestroyOptions } from 'sequelize';
- // @TODO: solve ts lint issues
+// @TODO: solve ts lint issues
 // @ts-ignore
 interface ModelInterface<T> {
   // @ts-ignore
-  findAll<T>(object);
+  findAll<T>(arg0: object);
+  findByPk<T>(id: number): Promise<ModelInterface<T> | null>;
+  create<T>(arg0: object): Promise<ModelInterface<T> | null>;
+  update<T>(arg0: ModelInterface<T>, arg1: object): object;
   // @ts-ignore
-  findByPk<T>(id: number);
-  // @ts-ignore
-  create<T>(object);
-  // @ts-ignore
-  update<T>(ModelInterface, object);
-  // @ts-ignore
-  destroy<T>(object);
+  destroy<T>(arg0: object): void;
 }
 
 export default class GenericRepository<T> {
@@ -33,7 +30,7 @@ export default class GenericRepository<T> {
     return this.Model.create<T>(user);
   }
 
-  async update(id: number, user: ModelInterface<T>) {
+  async update( id: number, user: ModelInterface<T>): Promise<object> {
     const updateOpts: UpdateOptions = {
       where: { id },
       limit: 1
