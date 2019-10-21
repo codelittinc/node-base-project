@@ -1,7 +1,7 @@
 import { applyConfig } from './config';
 import { getApp } from './server';
 
-export function start() {
+export async function start() {
   console.log(
     `Starting server in mode: ${process.env.NODE_ENV || 'development'}`
   );

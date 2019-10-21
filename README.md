@@ -49,8 +49,8 @@ This files are required to be stored as `DATE.NAME.up.sql`. Where `DATE` is the 
 
 To speed things up you can create a new migration doing:
 
-```
-make db-migrate-create name="properties"
+```shell
+make db.migrate.create name="properties"
 ```
 
 This will generate two files, `yyyyymmdd.properties.up.sql` and  `yyyyymmdd.properties.down.sql`.  
@@ -92,9 +92,7 @@ The full folder structure of this app is explained below:
 | package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
-| tsconfig.json                | Config settings for TSLint code style checking                                                |
-
-
+| tslint.json                | Config settings for TSLint code style checking                                                |
 
 ## Built With
 

@@ -19,7 +19,7 @@ stop:
 	docker-compose down
 
 db:
-	docker-compose up -d db
+	docker-compose up --remove-orphans -d db 
 
 config:
 	cp .env.example .env
