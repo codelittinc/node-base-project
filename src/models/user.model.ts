@@ -7,6 +7,14 @@ export class User extends BaseModel {
   public name!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public static async findByName(name: string): Promise<User | null> {
+    const queryOpts = {
+      where: { name }
+    };
+
+    return User.findOne(queryOpts);
+  }
 }
 
 User.init(
