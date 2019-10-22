@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import { Pool } from 'pg';
 
 import { getConnURI, getDatabaseConfig } from '@db/credentials';
