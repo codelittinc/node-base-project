@@ -23,6 +23,7 @@
     "@db": "src/db",
     "@config": "src/config",
     "@server": "src/server",
+    "@utils": "src/utils",
     "@tests": "tests"
   },
   "nodemonConfig": {
