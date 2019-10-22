@@ -2,13 +2,12 @@ import UsersService from '@services/db/user.service';
 import { UserInterface } from '@models/user.model';
 
 describe('#create', () => {
-  it('returns a User with an id', () => {
+  it('returns a User with an id', async () => {
     const userParams: UserInterface = {
       name: 'test name'
     };
 
-    return UsersService.create(userParams).then(user => {
-      expect(user!.id).toBeTruthy();
-    });
+    const user = await UsersService.create(userParams);
+    expect(user!.id).toBeTruthy();
   });
 });

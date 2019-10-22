@@ -17,7 +17,7 @@
     "test:all": "npm run test:unit && npm run test:integration"
   },
   "_moduleAliases": {
-    "@controllers": "./src/controllers",
+    "@controllers": "src/controllers",
     "@services": "src/services",
     "@models": "src/models",
     "@db": "src/db",

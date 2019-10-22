@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import * as path from 'path';
 import getMigrationsConfig from '@config/initializers/migrations';
 import { getConfig } from '@config';
