@@ -66,8 +66,11 @@ typings/
 # Serverless directories
 .serverless
 
+Makefile
+
 
 scripts/**/*.js*
 src/**/*.js*
 tests/**/*.js*
 index.js*
+

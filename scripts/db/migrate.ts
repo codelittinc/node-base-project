@@ -1,5 +1,6 @@
 import 'module-alias/register';
 
+import * as fs from 'fs';
 import * as path from 'path';
 import getMigrationsConfig from '@config/initializers/migrations';
 import { getConfig } from '@config';
@@ -72,6 +73,27 @@ async function processMigration() {
     return umzug.down({ to: prev });
   }
 
+  async function cmdCreateMigration() {
+    const today = new Date();
+    const day = today.getDate();
+    const monthIndex = today.getMonth() + 1;
+    const month = monthIndex < 10 ? `0${monthIndex}` : monthIndex;
+    const year = today.getFullYear();
+    const fullDate = `${year}${month}${day}`;
+    const name = process.env.NAME;
+
+    fs.writeFile(
+      `./src/db/migrations/${fullDate}.${name}.up.sql`,
+      '',
+      () => {}
+    );
+    fs.writeFile(
+      `./src/db/migrations/${fullDate}.${name}.down.sql`,
+      '',
+      () => {}
+    );
+  }
+
   function cmdHardReset() {
     const DB_NAME = getConfig().database.databaseName;
     const DB_USER = getConfig().database.user;
@@ -123,6 +145,10 @@ async function processMigration() {
 
     case 'reset-hard':
       executedCmd = cmdHardReset();
+      break;
+
+    case 'create':
+      executedCmd = cmdCreateMigration();
       break;
 
     default:
