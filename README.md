@@ -11,36 +11,36 @@ This base project is intended to be used with db ownership from the developer so
 ### Plug & Play
 
 * clone this project and access the folder where you cloned it
-* `make config` creates an `env` file with the example config
+* `npm run config` creates an `env` file with the example config
 * `npm i -g typescript` to install on your local environment typescript
-* `make start.all` starts the docker environment
+* `npm run docker:start` starts the docker environment
 * visit `http://localhost:9090`
 
 ### Running from you local env with docker database
 
 You can run the project from your local environemnt, using a dockerized postgres database configured for that!
 
-* `make db` starts the docker db environment
-* `make db.create` setups & migrates the app's database
+* `npm run db` starts the docker db environment
+* `npm run db:create` setups & migrates the app's database
 * `npm start` starts the server
 
 
-## Makefile
+## NPM Scripts
 
-The project comes with a `Makefile` created to run usefull commands.
+The project comes with multiple `Package.json` scripts created to run usefull commands.
 The following are the current command list:
-- `start.dev`: runs docker-compose containers, and starts bash. (Database will be not populated you will need to run extra commands)
-- `start`: same as `start.dev` but it will run the server
-- `build`: builds the docker-compose containers
+- `docker:start:dev`: runs docker-compose containers, and starts bash. (Database will be not populated you will need to run extra commands)
+- `docker:start`: same as `start:dev` but it will run the server
+- `docker:build`: builds the docker-compose containers
 - `config`: creates a basic env file to run your server, no sensible keys are available
 - `db`: starts the database container
-- `db.setup / db.setup.test`: creates the database if it not exists for dev / test environment
-- `db.create / db.create.test`: creates & execute migrations of the database if it not exists for dev / test environment
+- `db:setup / db:setup:test`: creates the database if it not exists for dev / test environment
+- `db:create / db:create:test`: creates & execute migrations of the database if it not exists for dev / test environment
 
 Execute a command via:
 
 ```shell
-make <command>
+npm run <command>
 ```
 
 ## Migrations
@@ -51,7 +51,7 @@ This files are required to be stored as `DATE.NAME.up.sql`. Where `DATE` is the 
 To speed things up you can create a new migration doing:
 
 ```
-make db-migrate-create name="properties"
+name=properties npm run db:migrate:create
 ```
 
 This will generate two files, `yyyyymmdd.properties.up.sql` and  `yyyyymmdd.properties.down.sql`.  
@@ -72,7 +72,6 @@ Execute a command via:
 ```shell
 npm run db:migrate <command>
 ```
-
 
 ## Project Structure
 The full folder structure of this app is explained below:
@@ -95,6 +94,12 @@ The full folder structure of this app is explained below:
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
 | tsconfig.json                | Config settings for TSLint code style checking                                                |
 
+## Contributing guidelines
+
+* Create a branch from the latest master template
+* Wrap all your changes in a single commit, rebase if needed to `fixup` the changes.
+* Rebase from master before submitting PR
+* When PR is approved, avoid commiting the `Merge Commit`
 
 
 ## Built With
