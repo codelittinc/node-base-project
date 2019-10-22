@@ -12,8 +12,8 @@
     "build:tsc": "tsc",
     "start": "npm run build:tsc && node index.js",
     "start-dev": "nodemon",
-    "test:unit": "jest test -c jest.unit.config.js",
-    "test:integration": "jest test -c jest.integration.config.js",
+    "test:unit": "npm run build:tsc && jest test -c jest.unit.config.js",
+    "test:integration": "npm run build:tsc && jest test -c jest.integration.config.js",
     "test:all": "npm run test:unit && npm run test:integration"
   },
   "_moduleAliases": {
