@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { User } from '@models/user.model';
 
 export default class UsersController {
-  static async findAll(_: Request, res: Response) {
+  static async list(_: Request, res: Response) {
     res.send(await User.findAll());
   }
 
-  static async find(req: Request, res: Response) {
+  static async show(req: Request, res: Response) {
     const userId: number = parseInt(req.params.id);
     const user = await User.findByPk(userId);
     if (user) {
