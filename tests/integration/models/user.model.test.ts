@@ -12,22 +12,26 @@ function generateString(length: number) {
 }
 
 describe('User', () => {
-  describe('Add new user', () => {
-    it('creates a user with valid data', async () => {
-      const userParams = {
-        name: 'test name'
-      };
+  describe('#create', () => {
+    describe('with valid params', () => {
+      it('creates a user', async () => {
+        const userParams = {
+          name: 'test name'
+        };
 
-      const user = await User.create(userParams);
-      expect(user!.id).toBeTruthy();
+        const user = await User.create(userParams);
+        expect(user!.id).toBeTruthy();
+      });
     });
 
-    it('fails to create a user with invalid data', async () => {
-      const userParams = {
-        name: generateString(129)
-      };
+    describe('with invalid params', () => {
+      it('fails to create a user', async () => {
+        const userParams = {
+          name: generateString(129)
+        };
 
-      expect(User.create(userParams)).rejects.toThrowError();
+        expect(User.create(userParams)).rejects.toThrowError();
+      });
     });
   });
 });
