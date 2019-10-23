@@ -12,6 +12,7 @@
     "db:create:test": "NODE_ENV=test node scripts/db/setup.js && NODE_ENV=test npm run db:migrate up",
     "db:create:all": "npm run build:tsc && npm run db:create && npm run db:create:test",
     "db:migrate": "node ./scripts/db/migrate.js",
+    "db:seed": "node scripts/db/seed.js",
     "db:setup": "npm run build:tsc && node scripts/db/setup.js",
     "db:setup:test": "npm run build:tsc && NODE_ENV=test node scripts/db/setup.js",
     "docker:db": "docker-compose up -d db",
