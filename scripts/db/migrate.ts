@@ -2,7 +2,9 @@ import 'module-alias/register';
 
 import * as fs from 'fs';
 import * as path from 'path';
-import getMigrationsConfig from '@config/initializers/migrations';
+import getMigrationsConfig, {
+  sqlResolver
+} from '@config/initializers/migrations';
 import { getConfig } from '@config';
 const child_process = require('child_process');
 
@@ -13,16 +15,16 @@ function logUmzugEvent(eventName) {
 }
 
 async function processMigration() {
-  const umzug = getMigrationsConfig();
+  const umzug = getMigrationsConfig({ resolver: sqlResolver });
 
   umzug.on('migrating', logUmzugEvent('migrating'));
   umzug.on('migrated', logUmzugEvent('migrated'));
   umzug.on('reverting', logUmzugEvent('reverting'));
   umzug.on('reverted', logUmzugEvent('reverted'));
 
-  async function cmdStatus() {
-    let executed = await umzug.executed();
-    let pending = await umzug.pending();
+  async function cmdStatus(umzugApi = umzug) {
+    let executed = await umzugApi.executed();
+    let pending = await umzugApi.pending();
 
     executed = executed.map(m => {
       m.name = path.basename(m.file, '.js');
@@ -94,6 +96,23 @@ async function processMigration() {
     );
   }
 
+  async function cmdSeed(down = false) {
+    const umzugSeed = getMigrationsConfig({
+      pattern: /seed.js$/,
+      directory: 'seed',
+      resolver: undefined
+    });
+    console.log('previous status: ');
+    await cmdStatus(umzugSeed);
+    const type = down ? 'down' : 'up';
+    await umzugSeed.execute({
+      migrations: ['seed.js'],
+      method: type
+    });
+    console.log('current status: ');
+    return cmdStatus(umzugSeed);
+  }
+
   function cmdHardReset() {
     const DB_NAME = getConfig().database.databaseName;
     const DB_USER = getConfig().database.user;
@@ -151,6 +170,14 @@ async function processMigration() {
       executedCmd = cmdCreateMigration();
       break;
 
+    case 'seed':
+      executedCmd = cmdSeed();
+      break;
+
+    case 'seed-reset':
+      executedCmd = cmdSeed(true);
+      break;
+
     default:
       console.log(`invalid cmd: ${cmd}`);
       process.exit(1);
@@ -168,7 +195,12 @@ async function processMigration() {
     console.log(err);
     console.log('='.repeat(errorStr.length));
   } finally {
-    if (cmd !== 'status' && cmd !== 'reset-hard') {
+    if (
+      cmd !== 'status' &&
+      cmd !== 'reset-hard' &&
+      cmd !== 'seed' &&
+      cmd !== 'seed-reset'
+    ) {
       await cmdStatus();
     }
     process.exit(0);
