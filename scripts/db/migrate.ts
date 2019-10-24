@@ -2,12 +2,41 @@ import 'module-alias/register';
 
 import * as fs from 'fs';
 import * as path from 'path';
-import getMigrationsConfig from '@config/initializers/migrations';
-import { getConfig } from '@config';
-const child_process = require('child_process');
+import * as Umzug from 'umzug';
+import * as child_process from 'child_process';
+import { Sequelize } from 'sequelize';
 
-function logUmzugEvent(eventName) {
-  return function(name) {
+import { database } from '@db';
+import { loadEnvVars } from '@config/initializers/envVars';
+import { getConfig } from '@config';
+
+const migrationsPath = path.join(__dirname, '../../src/db/migrations');
+
+function getMigrationsConfig() {
+  loadEnvVars();
+  return new Umzug({
+    migrations: {
+      path: migrationsPath,
+      params: [database.getQueryInterface(), Sequelize],
+      pattern: /\.up.sql$/,
+      customResolver: path => {
+        const downPath = path.replace('up', 'down');
+        return {
+          up: () => database.query(fs.readFileSync(path, 'utf-8')),
+          down: () => database.query(fs.readFileSync(downPath, 'utf-8'))
+        };
+      }
+    },
+    storage: 'sequelize',
+    storageOptions: {
+      database,
+      sequelize: database
+    }
+  });
+}
+
+function logUmzugEvent(eventName: String) {
+  return function(name: String) {
     console.log(`${name} ${eventName}`);
   };
 }
@@ -21,18 +50,8 @@ async function processMigration() {
   umzug.on('reverted', logUmzugEvent('reverted'));
 
   async function cmdStatus() {
-    let executed = await umzug.executed();
-    let pending = await umzug.pending();
-
-    executed = executed.map(m => {
-      m.name = path.basename(m.file, '.js');
-      return m;
-    });
-
-    pending = pending.map(m => {
-      m.name = path.basename(m.file, '.js');
-      return m;
-    });
+    const executed = await umzug.executed();
+    const pending = await umzug.pending();
 
     const current = executed.length > 0 ? executed[0].file : '<NO_MIGRATIONS>';
     const status = {
@@ -118,6 +137,7 @@ async function processMigration() {
   let executedCmd;
 
   console.log(`${cmd.toUpperCase()} BEGIN`);
+
   switch (cmd) {
     case 'status':
       executedCmd = cmdStatus();
