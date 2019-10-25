@@ -8,4 +8,4 @@ CREATE TABLE users
     WITH TIME ZONE NOT NULL
 );
 
-    CREATE UNIQUE INDEX users_pkey_index ON users(id);
+CREATE UNIQUE INDEX users_pkey_index ON users(id);
