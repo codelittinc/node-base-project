@@ -1,10 +1,10 @@
 # Base Node + GraphQL project
 
-This is basic nodejs + graphQl project starter
+## 👋 Intro
+
+This is basic nodejs + graphQl project starter that will be used for any NodeJS application.
 
 ## Running the project
-
-## Installation
 
 This base project is intended to be used with db ownership from the developer so there are multiple scripts created to manage the database.
 
