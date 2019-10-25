@@ -1,6 +1,6 @@
 import 'module-alias/register';
 
-import { getMigrationsConfig, runCommand } from './utils/migrate';
+import { getMigrationsConfig, runCommand } from './migrationRunner';
 
 const TYPE = 'data';
 
