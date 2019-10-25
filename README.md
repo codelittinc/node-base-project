@@ -98,6 +98,22 @@ Execute a command via:
 npm run db:migrate <command>
 ```
 
+## Tests
+
+The project contains unit & integrations tests to cover the full solution. All tests must be updated and never skipped over every change request.
+
+To run all tests:
+
+```
+npm test
+```
+
+For more information about test:
+
+- [General](tests/README.md) - Test general guidelines
+- [Unit](tests/unit/README.md) - Unit testing guidelines
+- [Integration](tests/integration/README.md) - Integration testing guidelines
+
 ## Project Structure
 
 The full folder structure of this app is explained below:
@@ -120,6 +136,7 @@ The full folder structure of this app is explained below:
 | jest.\*.config.js   | Used to configure Jest running unit & integrations tests written in TypeScript                 |
 | package.json        | File that contains npm dependencies                                                            |
 | tsconfig.json       | Config settings for compiling server code written in TypeScript                                |
+| tslint.json         | Config settings for formatting server code written in TypeScript                               |
 
 ## Contributing guidelines
 
