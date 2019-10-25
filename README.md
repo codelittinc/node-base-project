@@ -69,7 +69,15 @@ npm run <command>
 
 ## Migrations
 
-Migrations are configured as SQL files stored under the `db/migrations` folder.  
+A `Migration` is a managed incremental, that can be reversed and that we will track as a change request over the project under the version control.  
+Each migration will get a name to describe what has been changed and a date of the modification.  
+Migrations will patch the database and are available to reverse (down) the changes done.
+
+### Schema Migrations
+
+A schema migration is performed on a database whenever it is necessary to update or revert that database's schema to some newer or older version.
+
+Migrations are configured as SQL files stored under the `db/migrations` folder, that describe the **Schema** modification (Tables, SP, Views, etc) basically db structure.
 This files are required to be stored as `DATE.NAME.up.sql`. Where `DATE` is the current `yyyymmdd` date, and `NAME` is a meaningfull name for the migration we are creating.
 
 To speed things up you can create a new migration doing:
@@ -79,8 +87,8 @@ name=properties npm run db:migrate create
 ```
 
 This will generate two files, `yyyyymmdd.properties.up.sql` and `yyyyymmdd.properties.down.sql`.  
-The UP file should have the logic to create and insert all the elements needed to execute that migration.  
-The DOWN file should have the logic to decrease the migration, delete exactly what was created and inserted.
+The **UP** file should have the logic to create and insert all the elements needed to execute that migration.  
+The **DOWN** file should have the logic to decrease the migration, delete exactly what was created and inserted.
 
 The project comes with a helper created to run migrations using `umzug` api and `sequelize` database connection. It supports the following commands:
 
