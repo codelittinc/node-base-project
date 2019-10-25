@@ -86,6 +86,12 @@ To speed things up you can create a new migration doing:
 name=properties npm run db:migrate create
 ```
 
+or for TS migrations:
+
+```
+name=properties type=ts npm run db:migrate create
+```
+
 This will generate two files, `yyyyymmdd.properties.up.sql` and `yyyyymmdd.properties.down.sql`.  
 The **UP** file should have the logic to create and insert all the elements needed to execute that migration.  
 The **DOWN** file should have the logic to decrease the migration, delete exactly what was created and inserted.
