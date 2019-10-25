@@ -8,11 +8,13 @@
   },
   "scripts": {
     "config": "cp .env.example .env",
-    "db:create": "npm run db:setup && npm run db:migrate up",
-    "db:create:test": "npm run db:setup:test && npm run db:migrate:test up",
+    "db:create": "npm run db:setup && npm run db:migrate up && npm run db:migrate:data up",
+    "db:create:test": "npm run db:setup:test  && npm run db:migrate up && npm run db:migrate:data:test up",
     "db:create:all": "npm run build:tsc && npm run db:create && npm run db:create:test",
     "db:migrate": "node ./scripts/db/migrate.js",
     "db:migrate:test": "NODE_ENV=test npm run db:migrate",
+    "db:migrate:data": "node ./scripts/db/migrate-data.js",
+    "db:migrate:data:test": "NODE_ENV=test npm run db:migrate:data",
     "db:seed": "node scripts/db/seed.js",
     "db:setup": "npm run build:tsc && node scripts/db/setup.js",
     "db:setup:test": "NODE_ENV=test npm run db:setup",
@@ -29,7 +31,7 @@
     "start:watch": "nodemon -e js --exec \"node index.js\"",
     "test:unit": "npm run build:tsc && jest test -c jest.unit.config.js",
     "test:integration": "npm run build:tsc && jest test -c jest.integration.config.js",
-    "test:all": "npm run test:unit && npm run test:integration"
+    "test": "npm run test:unit && npm run test:integration"
   },
   "_moduleAliases": {
     "@controllers": "src/controllers",
