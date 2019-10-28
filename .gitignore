@@ -66,9 +66,12 @@ typings/
 # Serverless directories
 .serverless
 
+# Make wont be used
 Makefile
 
+# Result files from project
 dist
+swagger.yaml
 scripts/**/*.js*
 src/**/*.js*
 tests/**/*.js*
