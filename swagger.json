@@ -1,0 +1,208 @@
+{
+	"basePath": "/v1",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"IUser": {
+			"properties": {
+				"id": {
+					"type": "number",
+					"format": "double"
+				},
+				"name": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"createdAt",
+				"updatedAt"
+			],
+			"type": "object",
+			"additionalProperties": false
+		}
+	},
+	"info": {
+		"title": "node-graphq-base",
+		"version": "0.0.1",
+		"description": "A starter for Node-Apollo-GraphQL projects",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/users": {
+			"get": {
+				"operationId": "List",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/IUser"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"description": "List all created users",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"201": {
+						"description": "Created",
+						"schema": {
+							"$ref": "#/definitions/IUser"
+						}
+					}
+				},
+				"description": "Creates a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "This is the user body creation request",
+						"in": "body",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Updates a user",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The user to be updated",
+						"in": "body",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "Show",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/IUser"
+						}
+					},
+					"404": {
+						"description": "Model not found"
+					}
+				},
+				"description": "Search's for the user by primary identifier",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "Primary identifier of the user",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Delete",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Delete a user by ID",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "Identifier for the user",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"format": "double",
+						"type": "number"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {
+		"api_key": {
+			"type": "apiKey",
+			"name": "access_token",
+			"in": "query"
+		},
+		"tsoa_auth": {
+			"type": "oauth2",
+			"authorizationUrl": "http://swagger.io/api/oauth/dialog",
+			"flow": "implicit",
+			"scopes": {
+				"write:pets": "modify things",
+				"read:pets": "read things"
+			}
+		}
+	},
+	"host": "localhost:9090"
+}

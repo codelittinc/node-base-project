@@ -12,7 +12,7 @@ describe('UsersController', () => {
       await User.create(userData);
 
       const { body } = await request(getApp())
-        .get(`/users`)
+        .get(`/v1/users`)
         .send();
 
       return expect(body[0].name).toBe(userData.name);
@@ -27,7 +27,7 @@ describe('UsersController', () => {
       const user = await User.create(userData);
 
       const { body } = await request(getApp())
-        .get(`/users/${user!.id}`)
+        .get(`/v1/users/${user!.id}`)
         .send();
 
       return expect(body.name).toBe(userData.name);

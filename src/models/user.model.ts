@@ -2,7 +2,17 @@ import { DataTypes } from 'sequelize';
 import { database } from '@db';
 import BaseModel from './base.model';
 
-export class User extends BaseModel {
+/**
+ * @tsoaModel
+ */
+export interface IUser {
+  id: number;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export class User extends BaseModel implements IUser {
   public id!: number;
   public name!: string;
   public readonly createdAt!: Date;

@@ -25,6 +25,7 @@
       "@models": ["src/models/index"],
       "@models/*": ["src/models/*"],
       "@server": ["src/server/index"],
+      "@server/*": ["src/server/*"],
       "@tests": ["tests"],
       "@db": ["src/db/index"],
       "@db/*": ["src/db/*"],
@@ -33,5 +34,5 @@
     }
   },
   "include": ["./**/*"],
-  "exclude": ["node_modules", "test", "dist", "*.sql"]
+  "exclude": ["node_modules", "tests", "dist", "src/server/routes.ts"]
 }

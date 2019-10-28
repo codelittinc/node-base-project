@@ -1,35 +1,69 @@
-import { Request, Response } from 'express';
-import { User } from '@models/user.model';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Route,
+  SuccessResponse,
+  Tags,
+  Response
+} from 'tsoa';
+import { User, IUser } from '../models/user.model';
+import { NotFoundError } from '@server/errors';
 
-export default class UsersController {
-  static async list(_: Request, res: Response) {
-    res.send(await User.findAll());
+@Route('users')
+@Tags('Users')
+export class UsersController extends Controller {
+  /**
+   * List all created users
+   */
+  @Get()
+  async list(): Promise<IUser[]> {
+    return await User.findAll();
   }
 
-  static async show(req: Request, res: Response) {
-    const userId: number = parseInt(req.params.id);
-    const user = await User.findByPk(userId);
+  /**
+   * Search's for the user by primary identifier
+   * @param id Primary identifier of the user
+   */
+  @Get('{id}')
+  @Response('404', 'Model not found')
+  async show(id: number): Promise<IUser> {
+    const user = await User.findByPk(id);
     if (user) {
-      res.json(user);
+      return user;
     } else {
-      res.status(404).json({ errors: ['User not found'] });
+      throw new NotFoundError('User not found');
     }
   }
 
-  static async create(req: Request, res: Response) {
-    const user: object = req.body;
-    res.send(await User.create(user));
+  /**
+   * Creates a user
+   * @param user This is the user body creation request
+   */
+  @SuccessResponse('201', 'Created')
+  @Post()
+  async create(@Body() user: any): Promise<IUser> {
+    return await User.create(user);
   }
 
-  static async update(req: Request, res: Response) {
-    const user = req.body;
+  /**
+   * Updates a user
+   * @param user The user to be updated
+   */
+  @Put()
+  async update(@Body() user: any) {
     await User.updateOne(user);
-    res.json();
   }
 
-  static async delete(req: Request, res: Response) {
-    const userId: number = parseInt(req.params.id);
-    await User.deleteOne(userId);
-    res.json();
+  /**
+   * Delete a user by ID
+   * @param id Identifier for the user
+   * */
+  @Delete('{id}')
+  async delete(id: number) {
+    await User.deleteOne(id);
   }
 }
