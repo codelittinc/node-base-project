@@ -105,7 +105,8 @@ The following are the current command list:
 - `db:migrate:data`: runs the database migration client of the data for dev environment
 - `db:seed`: runs the seeds of the project for dev environment
 - `start`: compiles and starts the application
-- `start-dev`: watch the TS files, on a change it builds the hole application and starts.
+- `start:dev`: watch the TS files, on a change it builds the hole application and starts.
+- `start:prod`: starts the application using node for built js.
 - `start:watch`: watch the JS files, on a change it starts the application. (It depends on the VSCode task `build-watch`)
 - `test:unit`: runs the unit tests
 - `test:integration`: runs the integration tests on the test environment
