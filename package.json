@@ -11,11 +11,11 @@
     "db:create": "npm run db:setup && npm run db:migrate:schema up && npm run db:migrate:data up",
     "db:create:test": "npm run db:setup:test  && npm run db:migrate:schema up && npm run db:migrate:data:test up",
     "db:create:all": "npm run build:tsc && npm run db:create && npm run db:create:test",
-    "db:migrate:schema": "node ./scripts/db/schemaMigration.js",
-    "db:migrate:schema:test": "NODE_ENV=test npm run db:migrate",
-    "db:migrate:data": "node ./scripts/db/dataMigration.js",
-    "db:seed": "node scripts/db/seed.js",
-    "db:setup": "npm run build:tsc && node scripts/db/setup.js",
+    "db:migrate:schema": "ts-node --prefer-ts-exts ./scripts/db/schemaMigration.ts",
+    "db:migrate:schema:test": "NODE_ENV=test npm run db:migrate:schema",
+    "db:migrate:data": "ts-node --prefer-ts-exts ./scripts/db/dataMigration.ts",
+    "db:seed": "ts-node ---prefer-ts-exts scripts/db/seed.ts",
+    "db:setup": "ts-node --prefer-ts-exts scripts/db/setup.ts",
     "db:setup:test": "NODE_ENV=test npm run db:setup",
     "docker:db": "docker-compose up -d db",
     "docker:start": "sh scripts/docker/start.sh",
@@ -25,11 +25,12 @@
     "lint": "tslint **/*.ts",
     "build": "npm run build:tsc",
     "build:tsc": "tsc",
-    "start": "npm run build:tsc && node index.js",
-    "start-dev": "nodemon",
+    "start": "ts-node --prefer-ts-exts index.ts",
+    "start:dev": "nodemon",
+    "start:prod": "node index.js",
     "start:watch": "nodemon -e js --exec \"node index.js\"",
-    "test:unit": "npm run build:tsc && jest test -c jest.unit.config.js",
-    "test:integration": "npm run build:tsc && jest test -c jest.integration.config.js",
+    "test:unit": "jest test -c jest.unit.config.js",
+    "test:integration": "jest test -c jest.integration.config.js",
     "test": "npm run test:unit && npm run test:integration"
   },
   "_moduleAliases": {
@@ -63,7 +64,7 @@
     "pg": "^7.12.1",
     "prettier": "^1.18.2",
     "sequelize": "^5.20.0",
-    "ts-node": "^6.0.3",
+    "ts-node": "^8.3.0",
     "tslint": "^5.10.0",
     "tslint-language-service": "^0.9.9",
     "tslint-plugin-prettier": "^1.3.0",
@@ -80,6 +81,7 @@
     "jest": "^24.9.0",
     "nodemon": "^1.17.5",
     "supertest": "^4.0.2",
-    "ts-jest": "^24.1.0"
+    "ts-jest": "^24.1.0",
+    "tsconfig-paths": "^3.9.0"
   }
 }
