@@ -28,7 +28,6 @@
     "start": "ts-node --prefer-ts-exts index.ts",
     "start:dev": "nodemon",
     "start:prod": "node index.js",
-    "start:watch": "nodemon -e js --exec \"node index.js\"",
     "test:unit": "jest test -c jest.unit.config.js",
     "test:integration": "jest test -c jest.integration.config.js",
     "test": "npm run test:unit && npm run test:integration"
