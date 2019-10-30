@@ -7,5 +7,3 @@ CREATE TABLE users
     "updatedAt" TIMESTAMP
     WITH TIME ZONE NOT NULL
 );
-
-CREATE UNIQUE INDEX users_pkey_index ON users(id);

@@ -47,7 +47,8 @@
     "watch": [
       "src",
       "public",
-      ".env"
+      ".env",
+      "swagger.json"
     ],
     "exec": "npm run start",
     "ext": "ts"

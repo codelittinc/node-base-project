@@ -9,6 +9,7 @@ export function applyConfig() {
 
 export function getConfig() {
   return {
-    database: getDatabaseConfig()
+    database: getDatabaseConfig(),
+    detailedErrorMessage: process.env.DETAILED_ERROR_MESSAGE
   };
 }

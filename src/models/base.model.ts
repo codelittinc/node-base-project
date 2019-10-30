@@ -1,7 +1,7 @@
-import { Model, UpdateOptions, DestroyOptions } from 'sequelize';
+import { Model, UpdateOptions, DestroyOptions, FindOptions } from 'sequelize';
 
 abstract class BaseModel extends Model {
-  public static async updateOne(instance: any): Promise<BaseModel | null> {
+  public static async updateOne(instance: any): Promise<any | null> {
     const updateOpts: UpdateOptions = {
       where: { id: instance.id },
       limit: 1,
@@ -22,6 +22,23 @@ abstract class BaseModel extends Model {
     };
 
     return (this as any).destroy(deleteOpts);
+  }
+
+  public static async get(
+    id: number,
+    options?: FindOptions | undefined
+  ): Promise<any | null> {
+    return await (this as any).findByPk(id, options || this.getFindOptions());
+  }
+
+  public static async getAll(
+    options?: FindOptions | undefined
+  ): Promise<any[]> {
+    return await (this as any).findAll(options || this.getFindOptions());
+  }
+
+  public static getFindOptions(): FindOptions {
+    return {};
   }
 }
 

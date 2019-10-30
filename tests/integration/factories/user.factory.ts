@@ -1,5 +1,5 @@
 import { User } from '@models';
-import { BaseFactory } from './BaseFactory';
+import { BaseFactory } from './base.factory';
 
 export class UserFactory extends BaseFactory<User> {
   constructor() {
