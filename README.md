@@ -12,7 +12,6 @@ This is basic Nodejs project starter. Its goal is to offer a simple way to start
 - Docker development environment
 - Tests
 
-
 ## Running the project
 
 ### Dependencies
@@ -27,7 +26,7 @@ This is basic Nodejs project starter. Its goal is to offer a simple way to start
 4. run `npm run docker:start:dev`
 5. run `npm install`
 6. run `npm run db:create:all`
-6. run `npm start`
+7. run `npm start`
 
 visit `http://localhost:9090/users`
 
@@ -37,12 +36,11 @@ The project contains unit & integrations tests to cover the full solution.
 
 ### Running:
 
-All: ```npm test```
+All: `npm test`
 
-Unit: ```npm test:unit```
+Unit: `npm test:unit`
 
-Integration: ```npm test:integration```
-
+Integration: `npm test:integration`
 
 For more information about our tests:
 
@@ -54,32 +52,35 @@ For more information about our tests:
 
 The full folder structure of this app is explained below:
 
-| Name                | Description                                                                                    |
-| ------------------- | ---------------------------------------------------------------------------------------------- |
-| **.vscode**         | Contains VS Code specific settings                                                             
-| **dist**            | Contains the distributable (or output) from the TypeScript build. This is the code we ship    
-| **src**             | Contains the source code                             
-| **src/config**      | Contains the project general configuration                            
-| [**src/controllers**](src/controllers/README.md) | Controllers define functions that respond to various http requests                             
-| [**src/models**](src/models/README.md)      | Models define Sequelize schemas that will be used in storing and retrieving data
-| **src/server**      | Server methods to run the server                                                       
-| **src/services**    | Services that group logic to process information                                                
-| **src/types**       | Holds .d.ts files not found on DefinitelyTyped.                                                
-| **src**/index.ts    | Entry point to the express app                                                                
-| [**tests**](tests/README.md)          | Contains the tests 
+| Name                                             | Description                                                                                |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| **.vscode**                                      | Contains VS Code specific settings                                                         |
+| **dist**                                         | Contains the distributable (or output) from the TypeScript build. This is the code we ship |
+| **src**                                          | Contains the source code                                                                   |
+| **src/config**                                   | Contains the project general configuration                                                 |
+| [**src/controllers**](src/controllers/README.md) | Controllers define functions that respond to various http requests                         |
+| [**src/models**](src/models/README.md)           | Models define Sequelize schemas that will be used in storing and retrieving data           |
+| **src/server**                                   | Server methods to run the server                                                           |
+| **src/services**                                 | Services that group logic to process information                                           |
+| **src/types**                                    | Holds .d.ts files not found on DefinitelyTyped.                                            |
+| **src**/index.ts                                 | Entry point to the express app                                                             |
+| [**tests**](tests/README.md)                     | Contains the tests                                                                         |
 
 ## Contributing guidelines
 
 ### Branches
+
 The name of the branch should follow:
 
 - fix/fix-name
 - feature/feature-name
 
 ### Commits
+
 We are using [Codelitt's commit styleguide](https://github.com/codelittinc/incubator-resources/blob/master/engineering/dev_best_practices/project-structure/commits.md)
 
 ### Steps
+
 - Create a branch from the default branch
 - Create one commit per fix/feature
 - Create a pull request
@@ -107,7 +108,6 @@ The following are the current command list:
 - `start`: compiles and starts the application
 - `start:dev`: watch the TS files, on a change it builds the hole application and starts.
 - `start:prod`: starts the application using node for built js.
-- `start:watch`: watch the JS files, on a change it starts the application. (It depends on the VSCode task `build-watch`)
 - `test:unit`: runs the unit tests
 - `test:integration`: runs the integration tests on the test environment
 - `test:all`: runs all test types
