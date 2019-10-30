@@ -68,7 +68,7 @@ typings/
 
 Makefile
 
-
+dist
 scripts/**/*.js*
 src/**/*.js*
 tests/**/*.js*
