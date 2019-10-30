@@ -18,17 +18,25 @@ This is basic Nodejs project starter. Its goal is to offer a simple way to start
 
 - Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 
-### Commands
+### Running on *production* mode
 
 1. clone this project
 2. run `cd <project_name>`
 3. run `npm run config`
-4. run `npm run docker:start:dev`
-5. run `npm install`
-6. run `npm run db:create:all`
-7. run `npm start`
+4. fill the variables inside `.env`
+5. run `npm run docker:start`
 
-visit `http://localhost:9090/users`
+visit `http://localhost:9090/docs`
+
+### Running on *development* mode
+
+1. clone this project
+2. run `cd <project_name>`
+3. run `npm run config`
+4. fill the variables inside `.env`
+4. run `npm run docker:setup:dev`
+6. run `npm run db:start:dev`
+7. run `npm start` inside the docker container
 
 ## Tests
 
@@ -91,6 +99,8 @@ We are using [Codelitt's commit styleguide](https://github.com/codelittinc/incub
 
 The project comes with multiple `Package.json` scripts created to run usefull commands.
 The following are the current command list:
+
+@TODO: update scripts
 
 - `build`: runs all the builds necessary for the project
 - `build:tsc`: runs the typescript build of the project
