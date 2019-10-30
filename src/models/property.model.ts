@@ -1,36 +1,30 @@
 import { DataTypes, FindOptions } from 'sequelize';
 import { database } from '@db';
+import { User } from './user.model';
 import BaseModel from './base.model';
-import { Property } from './property.model';
 
-export class User extends BaseModel {
+export class Property extends BaseModel {
   public id!: number;
   public name!: string;
+  public minRent!: number;
+  public maxRent!: number;
+  public user!: User;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-  public readonly properties: Property[];
-
-  public static async findByName(name: string): Promise<User | null> {
-    const queryOpts = {
-      where: { name }
-    };
-
-    return User.findOne(queryOpts);
-  }
 
   static getFindOptions(): FindOptions {
     return {
       include: [
         {
-          model: Property,
-          as: 'properties'
+          model: User,
+          as: 'user'
         }
       ]
     };
   }
 }
 
-User.init(
+Property.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -40,13 +34,18 @@ User.init(
     name: {
       type: new DataTypes.STRING(128),
       allowNull: false
+    },
+    minRent: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
+    },
+    maxRent: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
     }
   },
   {
-    tableName: 'users',
+    tableName: 'properties',
     sequelize: database
   }
 );
-
-User.hasMany(Property, { as: 'properties', foreignKey: 'userId' });
-Property.belongsTo(User, { as: 'user' });

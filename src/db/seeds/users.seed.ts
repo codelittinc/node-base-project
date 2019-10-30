@@ -5,5 +5,8 @@ export default async () => {
   await User.create({
     name: 'Codelitt'
   });
+  await User.create({
+    name: 'Avison Young'
+  });
   console.log('Completed running user seed');
 };

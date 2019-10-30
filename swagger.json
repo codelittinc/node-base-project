@@ -70,6 +70,50 @@
 			"required": [
 				"count"
 			]
+		},
+		"IProperty": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"minRent": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"maxRent": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"user": {
+					"$ref": "#/definitions/IUser"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"minRent",
+				"maxRent",
+				"user"
+			]
 		}
 	},
 	"info": {
@@ -107,6 +151,9 @@
 					}
 				},
 				"description": "Recovers all active users",
+				"tags": [
+					"Users"
+				],
 				"parameters": []
 			},
 			"post": {
@@ -126,6 +173,9 @@
 					}
 				},
 				"description": "Creates a user",
+				"tags": [
+					"Users"
+				],
 				"consumes": [
 					"application/json"
 				],
@@ -163,6 +213,9 @@
 					}
 				},
 				"description": "Recovers the user resource by its id",
+				"tags": [
+					"Users"
+				],
 				"parameters": [
 					{
 						"description": "user primary identifier",
@@ -188,6 +241,9 @@
 					}
 				},
 				"description": "Updates the user",
+				"tags": [
+					"Users"
+				],
 				"consumes": [
 					"application/json"
 				],
@@ -225,9 +281,183 @@
 					}
 				},
 				"description": "Delete the user by its id",
+				"tags": [
+					"Users"
+				],
 				"parameters": [
 					{
 						"description": "user primary identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			}
+		},
+		"/properties": {
+			"get": {
+				"operationId": "PropertiesList",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve a list of properties.",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/IProperty"
+							}
+						}
+					},
+					"204": {
+						"description": "No content",
+						"examples": {
+							"application/json": [
+								null
+							]
+						}
+					}
+				},
+				"description": "Recovers all active properties",
+				"tags": [
+					"Properties"
+				],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "PropertiesCreate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"201": {
+						"description": "Created property",
+						"schema": {
+							"$ref": "#/definitions/IProperty"
+						}
+					},
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Creates a property",
+				"tags": [
+					"Properties"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "",
+						"in": "body",
+						"name": "property",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IProperty"
+						}
+					}
+				]
+			}
+		},
+		"/properties/{id}": {
+			"get": {
+				"operationId": "PropertiesShow",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Retrieve a property.",
+						"schema": {
+							"$ref": "#/definitions/IProperty"
+						}
+					},
+					"404": {
+						"description": "property not found",
+						"schema": {
+							"$ref": "#/definitions/NotFoundError"
+						}
+					}
+				},
+				"description": "Recovers the property resource by its id",
+				"tags": [
+					"Properties"
+				],
+				"parameters": [
+					{
+						"description": "property primary identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					}
+				]
+			},
+			"patch": {
+				"operationId": "PropertiesUpdate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Update the property that was sent",
+						"schema": {
+							"$ref": "#/definitions/IProperty"
+						}
+					}
+				},
+				"description": "Updates the property",
+				"tags": [
+					"Properties"
+				],
+				"consumes": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"description": "property primary identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"description": "",
+						"in": "body",
+						"name": "property",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IProperty"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "PropertiesDelete",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "property was deleted",
+						"schema": {
+							"$ref": "#/definitions/CountResponse"
+						}
+					}
+				},
+				"description": "Delete the property by its id",
+				"tags": [
+					"Properties"
+				],
+				"parameters": [
+					{
+						"description": "property primary identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,

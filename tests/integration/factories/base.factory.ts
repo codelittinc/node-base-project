@@ -1,7 +1,7 @@
-import { Model } from 'sequelize/types';
+import BaseModel from '@models/base.model';
 import * as faker from 'faker';
 
-export abstract class BaseFactory<T extends Model> {
+export abstract class BaseFactory<T extends BaseModel> {
   model: T;
 
   constructor(model: any) {
@@ -14,8 +14,8 @@ export abstract class BaseFactory<T extends Model> {
 
   abstract build(params: Partial<T>): any;
 
-  public create(params: Partial<T> = {}) {
+  public async create(params: Partial<T> = {}): Promise<T> {
     const aModel = this.build(params);
-    this.model.save(aModel);
+    return await (this.model as any).create(aModel);
   }
 }

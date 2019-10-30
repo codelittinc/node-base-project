@@ -8,13 +8,14 @@ import {
   PATCH,
   DELETE
 } from 'typescript-rest';
-import { Response, Produces, Example } from 'typescript-rest-swagger';
+import { Response, Produces, Example, Tags } from 'typescript-rest-swagger';
 import { NotFoundError } from 'typescript-rest/dist/server/model/errors';
 import { userExample } from './docs/user';
 import { IUser } from './types/user';
 import { CountResponse } from './types/common';
 
 @Path('/users')
+@Tags('Users')
 @Produces('application/json')
 export class UsersController {
   /**
@@ -24,7 +25,7 @@ export class UsersController {
   @Response<IUser[]>(200, 'Retrieve a list of users.')
   @Example<Array<IUser>>([userExample])
   async list() {
-    return await User.findAll();
+    return await User.getAll();
   }
 
   /**
@@ -37,7 +38,7 @@ export class UsersController {
   @Response<NotFoundError>(404, 'User not found')
   @Example<IUser>(userExample)
   async show(@PathParam('id') id: number): Promise<IUser> {
-    const user = await User.findByPk(id);
+    const user = await User.get(id);
     if (user) {
       return user;
     }
