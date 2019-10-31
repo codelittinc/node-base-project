@@ -118,6 +118,58 @@ Execute a command via:
 npm run <command>
 ```
 
+## Continuous Integration
+
+For continuous integration we have opted to use Azure Pipelines,
+the reason for it is that we are going to use all azure services and the integration is very smooth.
+
+### Introduction
+
+**Azure Pipelines** is a integration provided directly into Github that creates a CI/CD environment for Builds/Releases in each case.
+It provides a easy and friendly UI to crete builds, track their progress, issues and understand what is being released.
+After installing Azure Pipelines on the repository we are going to be redirected to a **Azure DevOps portal**, this will be where we are going to manage everything for that user.
+
+### Configuration
+
+Even though configurations can be done using the UI provided by **Azure DevOps**, we opt to use yml files like `test-pipeline.yml` or `build-pipeline.yml`.
+The reasoning is to track the configuration and easily migrate to any other repository or project.
+Also we can provide different configurations for different providers and the base project will be capable of be deployed to any of the available providers.
+
+#### Create build in Azure DevOps.
+
+When creating a new build, we can import settings from a **yml** file, use the `test-pipeline.yml` as the config file and will import use those tasks to provide the build steps.
+
+#### Test configuration
+
+For the test steps we have provided a basic node js testing flow.
+The app project will be build using nodejs (currently docker test are not supported) and validate that the build is working as expected.
+Then will validate unit tests, configure the environment variables and run integration tests.
+In the case of environment variables, for security reasons, it should be stored on the **Azure DevOps portal** to avoid having those variables in plain text on the repository.
+By default the `.env.test` file will be used as configuration file.
+
+##### Forcing test build to run on PRs
+
+To avoid any PR to be merged without the test build successfully ran, you can configure that on the github repository's branch settings.
+Create a new _Branch Rule_, this rule should apply to all branches, so the pattern should be `*`.
+Check the **Require status checks to pass before merging**, and select the test build.
+This will enforce that each time a PR is created, the tests will run and if are not run succesfully it can't be merged.
+
+#### Build release configuration
+
+The app project will be built based on the `docker-compose.yml` file.
+Azure will look up image that need to be built, and will build those images, and push it to the `Azure Container Registry` where the images tags are stored.
+To configure that you have to update the `azureContainerRegistry` property, with the registry that you want to use. Using the Azure UI is easy to configure the azure registry.
+
+##### Container registry
+
+For the porpouse of reviewing full azure integration we have setted up a **Azure Container Registry**.
+For that we have created the corresponding resource on azure, and once created we have to do some small configurations:
+
+- Enable Admin access, from the Security Tab.
+- Copy one of the two password provided, you will need that for future access.
+
+When configuring access to this registry from Azure Pipelines, the microsoft wizard will be pretty straight forward, just selecting the repository and the image, from the suscription you have on azure, will be enough to set up the connection.
+
 ## Built With
 
 - [Express](https://expressjs.com) - Nodejs framework
