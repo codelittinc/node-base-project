@@ -104,3 +104,10 @@ I have created a `Purchase History` view and it would be intresting to have prep
 
 _Data Migration:_
 I have created the `PaymentType` entity that can be `Cash` or `Credit Card` and this should be added to all environments, most importantly **production**.
+
+## Configuration
+
+### Production
+
+Using Azure PostgresSQL database service we have to use ssl between the client and the service to connect to the database.
+For that we have configured on production environment to have the `DB_SSL` with **true** value, keep that in mind when connecting from a different environment.
