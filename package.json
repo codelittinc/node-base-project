@@ -32,7 +32,8 @@
     "test:integration": "jest test -c jest.integration.config.js",
     "test": "npm run test:unit && npm run test:integration",
     "swagger": "swaggerGen -c ./swaggerConfig.json -t",
-    "graphql": "npm run swagger && npx openapi-to-graphql --port=9091 swagger.json --cors"
+    "graphql:run": "npx openapi-to-graphql --port=9091 swagger.json --cors -u http://localhost:9090",
+    "graphql": "npm run swagger && npm run graphql:run"
   },
   "_moduleAliases": {
     "@controllers": "src/controllers",
