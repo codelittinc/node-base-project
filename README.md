@@ -170,6 +170,63 @@ For that we have created the corresponding resource on azure, and once created w
 
 When configuring access to this registry from Azure Pipelines, the microsoft wizard will be pretty straight forward, just selecting the repository and the image, from the suscription you have on azure, will be enough to set up the connection.
 
+## Continuous Deployment
+
+### Introduction
+
+The deployed solution consist of a PostgreSQL database and a NodeJS application, this solution can be deployed in different ways using docker containers or even as basic webapp running node.
+For now we have configured different docker container settings
+
+### Docker Single Container.
+
+The dokcer single container configuration uses the image configured with the specific tag, applications settings and run it. Is important that the image exposes port 8080 or 80, so this is mapped from the image. This is a limitation of azure.
+
+**Extra considerations:**
+
+- Logging is not activated by default, go to the `App Services Log` settings and activate it.
+- Accessing the logs can be done through the `Log Stream`, the `Container Settings` tab or by accessing the advanced tools.
+- Even though azure provides `Dev` environments for containers, they have issues. Always use production settings even on a testing environment.
+- Update the service app settings with the necessary environment settings, ie. `SERVER_PORT` or `DB_HOST`.
+- Enable firewall rules as explain later, to allow the container to access the DB.
+
+#### Release Job
+
+The release job is automatically triggered after a deployment build completes, and executes the first stage as part of the Continuous deployment process. Normally this will deploy to the DEV environment, and force for authorization on the following environments.
+
+The job consists on a set of **steps** for each **stage**.
+For now we are only using one step for this release, but database specific jobs like migrations can be run as part of the release process.
+
+The step we are using is `Deploy Azure App Service`, that request access to the specific `Web App` that we created for this container. Also it will request the TAG version of the image that was just built.
+
+For dev porpuses latest could be an option but its recommended to use the `$(Build.BuildId)` variable that will match the image built on the build job that triggered the release. This way each release is attached to a specific image and can be redeployed at any time.
+
+As its explained later, application settings can be defined and stored as variables of the release and used on the `App & Configuration settings` to provide environment variables of the container.
+
+#### Settings for the container
+
+Environment variables can be configured over the application using the `Configuration` that will pass over as environment variables.
+Also this settings can be provided on the Container deployment task using the `App Settings` that are provided on the `Deploy Azure App Service` step. This will create or update the current configuration of the container.
+
+#### Setting up a Azure PostgreSQL Database
+
+First create the Azure Postgre database service thats provided by microsoft. For now we have setted up a basic database with 2 GB for this starter.
+
+_Other configurations_
+
+- On the `Connection Security` enable the _Allow access to Azure Services_ this will allow our single container to connect to this database.
+  For more information, refer to [Microsoft](https://docs.microsoft.com/en-us/azure/postgresql/concepts-firewall-rules)
+
+- If you plan to connect from your local computer to this database you will have to add firewall rules to your current IP.
+
+- Azure Pipeline task: An azure pipeline release can also be created to add an IP to different services.
+  Each stage should have a list of **Azure Client** tasks that execute the following command:
+
+```shell
+az postgres server firewall-rule create --resource-group RESOURCE_GROUP --server-name DATABASE_SERVER_NAME --name $(myNameForFirewall) --start-ip-address $(myIPAddress)--end-ip-address $(myIPAddress)
+```
+
+As an example a stage could have all the acccess for all DEV databases and run this over multiple resources.
+
 ## Built With
 
 - [Express](https://expressjs.com) - Nodejs framework
