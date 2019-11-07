@@ -23,7 +23,7 @@ steps:
     displayName: 'npm build'
 
   - script: |
-      npm run test:unit
+      npm run test:unit:ci
       if [ $? -ne 0 ]; then
         exit 1
       fi
@@ -40,7 +40,7 @@ steps:
       ANOTHER_DOTENV_PROP: someValue
 
   - script: |
-      npm run test:integration
+      npm run test:integration:ci
       if [ $? -ne 0 ]; then
         exit 1
       fi
