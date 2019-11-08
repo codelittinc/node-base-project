@@ -147,6 +147,16 @@ Then will validate unit tests, configure the environment variables and run integ
 In the case of environment variables, for security reasons, it should be stored on the **Azure DevOps portal** to avoid having those variables in plain text on the repository.
 By default the `.env.test` file will be used as configuration file.
 
+##### Running integration tests
+
+To run integration test a database for that porpouse must be setted up to connect from the CI, it could be a small dev/test tier, since it will always be cleanned after tests are run.
+
+To configure the database on the task, edit the build settings and access the variables list.
+Add configuration settings for `DB_DATABASE`, `DB_HOST`, `DB_USER` & `DB_PASSWORD`.
+This configuration will override whatever is on `env.test`.
+
+Do not store sensible information on the `.env` files.
+
 ##### Forcing test build to run on PRs
 
 To avoid any PR to be merged without the test build successfully ran, you can configure that on the github repository's branch settings.
