@@ -8,7 +8,7 @@ import {
   PATCH,
   DELETE
 } from 'typescript-rest';
-import { Response, Produces, Example, Tags } from 'typescript-rest-swagger';
+import { Response, Produces, Tags } from 'typescript-rest-swagger';
 import { NotFoundError } from 'typescript-rest/dist/server/model/errors';
 import { userExample } from './docs/user';
 import { IUser } from './types/user';
@@ -22,8 +22,7 @@ export class UsersController {
    * Recovers all active users
    */
   @GET
-  @Response<IUser[]>(200, 'Retrieve a list of users.')
-  @Example<Array<IUser>>([userExample])
+  @Response<IUser[]>(200, 'Retrieve a list of users.', [userExample])
   async list() {
     return await User.getAll();
   }
@@ -34,9 +33,8 @@ export class UsersController {
    */
   @Path('/:id')
   @GET
-  @Response<IUser>(200, 'Retrieve a user.')
+  @Response<IUser>(200, 'Retrieve a user.', userExample)
   @Response<NotFoundError>(404, 'User not found')
-  @Example<IUser>(userExample)
   async show(@PathParam('id') id: number): Promise<IUser> {
     const user = await User.get(id);
     if (user) {
@@ -49,8 +47,7 @@ export class UsersController {
    * Creates a user
    */
   @POST
-  @Response<IUser>(201, 'Created user')
-  @Example<IUser>(userExample)
+  @Response<IUser>(201, 'Created user', userExample)
   async create(user: IUser) {
     return await User.create(user);
   }
@@ -61,8 +58,7 @@ export class UsersController {
    */
   @Path('/:id')
   @PATCH
-  @Example<IUser>(userExample)
-  @Response<IUser>(200, 'Update the user that was sent')
+  @Response<IUser>(200, 'Update the user that was sent', userExample)
   async update(
     @PathParam('id') id: number,
     user: IUser

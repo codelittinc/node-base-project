@@ -1,4 +1,4 @@
-import { DataTypes, FindOptions } from 'sequelize';
+import { DataTypes, FindOptions, Association } from 'sequelize';
 import { database } from '@db';
 import { User } from './user.model';
 import BaseModel from './base.model';
@@ -11,6 +11,10 @@ export class Property extends BaseModel {
   public user!: User;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public static associations: {
+    user: Association<Property, User>;
+  };
 
   static getFindOptions(): FindOptions {
     return {
@@ -42,6 +46,9 @@ Property.init(
     maxRent: {
       type: DataTypes.DECIMAL,
       allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER
     }
   },
   {

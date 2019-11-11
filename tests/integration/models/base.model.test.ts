@@ -1,19 +1,17 @@
 import { User as BaseModel } from '@models/user.model';
-import { UserFactory } from '../factories/user.factory';
+import Factory from '../factory';
 
 /*
  * As a base model example we are using the User model.
  * For base model methods add tests in this file to avoid duplication.
  */
-
-const BaseFactory = new UserFactory();
-const nonExistingId = 100;
-
 describe('BaseModel', () => {
+  const nonExistingId = 100;
+
   describe('#create', () => {
     describe('with valid params', () => {
       it('creates a model', async () => {
-        const baseModel = await BaseFactory.create();
+        const baseModel = await Factory.create('user');
         expect(baseModel!.id).toBeTruthy();
       });
     });
@@ -22,7 +20,7 @@ describe('BaseModel', () => {
   describe('#deleteOne', () => {
     describe('with an existing id', () => {
       it('deletes the model', async () => {
-        const baseModel = await BaseFactory.create();
+        const baseModel = await Factory.create('user');
         const count = await BaseModel.deleteOne(baseModel.id);
         expect(count).toEqual(1);
       });
@@ -39,7 +37,7 @@ describe('BaseModel', () => {
   describe('#get', () => {
     describe('with an existing id', () => {
       it('returns the model', async () => {
-        const model = await BaseFactory.create();
+        const model = await Factory.create('user');
         const recoveredModel = await BaseModel.get(model.id);
         expect(model.name).toEqual(recoveredModel!.name);
       });
