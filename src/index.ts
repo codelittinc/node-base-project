@@ -12,11 +12,13 @@ export function start() {
 
   const app = getApp();
 
-  const { SERVER_PORT } = process.env;
+  const { SERVER_PORT, NODE_ENV } = process.env;
 
   const PORT = SERVER_PORT || 9090;
 
-  app.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}`);
+  const server = app.listen(PORT, () => {
+    if (NODE_ENV !== 'test') console.log(`Server listening on PORT ${PORT}`);
   });
+
+  return server;
 }
