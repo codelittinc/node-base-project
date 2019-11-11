@@ -8,10 +8,10 @@ import {
   PATCH,
   DELETE
 } from 'typescript-rest';
-import { Response, Produces, Example, Tags } from 'typescript-rest-swagger';
+import { Response, Produces, Tags } from 'typescript-rest-swagger';
 import { NotFoundError } from 'typescript-rest/dist/server/model/errors';
-import { propertyExample } from './docs/property';
-import { IProperty } from './types/property';
+import { propertyReadExample, propertyWriteExample } from './docs/property';
+import { IPropertyRead, IPropertyWrite } from './types/property';
 import { CountResponse } from './types/common';
 
 @Path('/properties')
@@ -22,9 +22,10 @@ export class PropertiesController {
    * Recovers all active properties
    */
   @GET
-  @Response<IProperty[]>(200, 'Retrieve a list of properties.')
-  @Example<Array<IProperty>>([propertyExample])
-  async list() {
+  @Response<IPropertyRead[]>(200, 'Retrieve a list of properties.', [
+    propertyReadExample
+  ])
+  public async list() {
     return await Property.getAll();
   }
 
@@ -34,10 +35,9 @@ export class PropertiesController {
    */
   @Path('/:id')
   @GET
-  @Response<IProperty>(200, 'Retrieve a property.')
+  @Response<IPropertyRead>(200, 'Retrieve a property.', propertyReadExample)
   @Response<NotFoundError>(404, 'property not found')
-  @Example<IProperty>(propertyExample)
-  async show(@PathParam('id') id: number): Promise<IProperty> {
+  async show(@PathParam('id') id: number): Promise<IPropertyRead> {
     const property = await Property.get(id);
     if (property) {
       return property;
@@ -49,9 +49,8 @@ export class PropertiesController {
    * Creates a property
    */
   @POST
-  @Response<IProperty>(201, 'Created property')
-  @Example<IProperty>(propertyExample)
-  async create(property: IProperty) {
+  @Response<IPropertyWrite>(201, 'Created property', propertyWriteExample)
+  async create(property: IPropertyWrite) {
     return await Property.create(property);
   }
 
@@ -61,12 +60,15 @@ export class PropertiesController {
    */
   @Path('/:id')
   @PATCH
-  @Example<IProperty>(propertyExample)
-  @Response<IProperty>(200, 'Update the property that was sent')
+  @Response<IPropertyWrite>(
+    200,
+    'Update the property that was sent',
+    propertyWriteExample
+  )
   async update(
     @PathParam('id') id: number,
-    property: IProperty
-  ): Promise<IProperty | null> {
+    property: IPropertyWrite
+  ): Promise<IPropertyWrite | null> {
     const result = await Property.updateOne({ ...property, id });
     if (result) {
       return result as any;

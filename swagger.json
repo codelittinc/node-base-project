@@ -1,7 +1,7 @@
 {
 	"basePath": "/",
 	"definitions": {
-		"IUser": {
+		"IPropertyWrite": {
 			"description": "",
 			"properties": {
 				"id": {
@@ -11,6 +11,21 @@
 				},
 				"name": {
 					"type": "string",
+					"description": ""
+				},
+				"minRent": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"maxRent": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"userId": {
+					"type": "number",
+					"format": "double",
 					"description": ""
 				},
 				"createdAt": {
@@ -26,7 +41,46 @@
 			},
 			"type": "object",
 			"required": [
-				"name"
+				"name",
+				"minRent",
+				"maxRent",
+				"userId"
+			]
+		},
+		"IUser": {
+			"description": "",
+			"properties": {
+				"id": {
+					"type": "number",
+					"format": "double",
+					"description": ""
+				},
+				"name": {
+					"type": "string",
+					"description": ""
+				},
+				"properties": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/IPropertyWrite"
+					},
+					"description": ""
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time",
+					"description": ""
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"properties"
 			]
 		},
 		"NotFoundError": {
@@ -71,7 +125,7 @@
 				"count"
 			]
 		},
-		"IProperty": {
+		"IPropertyRead": {
 			"description": "",
 			"properties": {
 				"id": {
@@ -95,6 +149,11 @@
 				},
 				"user": {
 					"$ref": "#/definitions/IUser"
+				},
+				"userId": {
+					"type": "number",
+					"format": "double",
+					"description": ""
 				},
 				"createdAt": {
 					"type": "string",
@@ -139,15 +198,15 @@
 							"items": {
 								"$ref": "#/definitions/IUser"
 							}
-						}
-					},
-					"204": {
-						"description": "No content",
+						},
 						"examples": {
 							"application/json": [
 								null
 							]
 						}
+					},
+					"204": {
+						"description": "No content"
 					}
 				},
 				"description": "Recovers all active users",
@@ -308,17 +367,17 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IProperty"
+								"$ref": "#/definitions/IPropertyRead"
 							}
-						}
-					},
-					"204": {
-						"description": "No content",
+						},
 						"examples": {
 							"application/json": [
 								null
 							]
 						}
+					},
+					"204": {
+						"description": "No content"
 					}
 				},
 				"description": "Recovers all active properties",
@@ -336,7 +395,7 @@
 					"201": {
 						"description": "Created property",
 						"schema": {
-							"$ref": "#/definitions/IProperty"
+							"$ref": "#/definitions/IPropertyWrite"
 						}
 					},
 					"204": {
@@ -357,7 +416,7 @@
 						"name": "property",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/IProperty"
+							"$ref": "#/definitions/IPropertyWrite"
 						}
 					}
 				]
@@ -373,7 +432,7 @@
 					"200": {
 						"description": "Retrieve a property.",
 						"schema": {
-							"$ref": "#/definitions/IProperty"
+							"$ref": "#/definitions/IPropertyRead"
 						}
 					},
 					"404": {
@@ -407,7 +466,7 @@
 					"200": {
 						"description": "Update the property that was sent",
 						"schema": {
-							"$ref": "#/definitions/IProperty"
+							"$ref": "#/definitions/IPropertyWrite"
 						}
 					}
 				},
@@ -433,7 +492,7 @@
 						"name": "property",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/IProperty"
+							"$ref": "#/definitions/IPropertyWrite"
 						}
 					}
 				]
@@ -477,6 +536,7 @@
 		}
 	},
 	"schemes": [
-		"http"
+		"http",
+		"https"
 	]
 }

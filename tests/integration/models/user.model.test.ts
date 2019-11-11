@@ -1,21 +1,19 @@
 import { User } from '@models/user.model';
-import { UserFactory } from '../factories/user.factory';
-
-const userFactory = new UserFactory();
+import Factory from '../factory';
 
 describe('User', () => {
   describe('#create', () => {
     describe('with valid params', () => {
       it('creates a user', async () => {
-        const user = await userFactory.create();
+        const user = await Factory.create('user');
         expect(user!.id).toBeTruthy();
       });
     });
 
     describe('with invalid params', () => {
       it('fails to create a user', async () => {
-        const userParams = userFactory.build({
-          name: userFactory.getFaker().random.alphaNumeric(129)
+        const userParams = Factory.build('user', {
+          name: Factory.chance('string', { length: 129 })
         });
 
         await expect(User.create(userParams)).rejects.toThrowError();
@@ -26,7 +24,7 @@ describe('User', () => {
   describe('#findByName', () => {
     describe('with valid params', () => {
       it('returns the user', async () => {
-        const user = await userFactory.create();
+        const user = await Factory.create('user');
         const searchedUser = await User.findByName(user.name);
         expect(searchedUser!.id).toBeTruthy();
       });
@@ -43,10 +41,10 @@ describe('User', () => {
   describe('#updateOne', () => {
     describe('with a valid name', () => {
       it('updates the user', async () => {
-        const user = await userFactory.create();
+        const user = await Factory.create('user');
         const updatedUser = await User.updateOne({
           id: user.id,
-          name: userFactory.getFaker().random.alphaNumeric()
+          name: Factory.chance('string', { length: 100 })()
         });
         expect(updatedUser!.name).not.toEqual(user.name);
       });
@@ -54,14 +52,13 @@ describe('User', () => {
 
     describe('with a invalid name', () => {
       it('throws an database error', async () => {
-        const user = await userFactory.create();
+        const user = await Factory.create('user');
 
-        const invalidUser = userFactory.build({
-          name: userFactory.getFaker().random.alphaNumeric(129),
+        const invalidUser = await Factory.build('user', {
+          name: Factory.chance('string', { length: 129 }),
           id: user.id
         });
-
-        await expect(User.updateOne(invalidUser)).rejects.toThrowError();
+        await expect(User.updateOne(invalidUser.get())).rejects.toThrowError();
       });
     });
   });

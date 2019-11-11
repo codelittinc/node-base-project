@@ -1,4 +1,4 @@
-import { DataTypes, FindOptions } from 'sequelize';
+import { DataTypes, FindOptions, Association } from 'sequelize';
 import { database } from '@db';
 import BaseModel from './base.model';
 import { Property } from './property.model';
@@ -9,6 +9,10 @@ export class User extends BaseModel {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly properties: Property[];
+
+  public static associations: {
+    properties: Association<User, Property>;
+  };
 
   public static async findByName(name: string): Promise<User | null> {
     const queryOpts = {
@@ -48,5 +52,10 @@ User.init(
   }
 );
 
-User.hasMany(Property, { as: 'properties', foreignKey: 'userId' });
-Property.belongsTo(User, { as: 'user' });
+User.hasMany(Property, {
+  as: 'properties',
+  foreignKey: { allowNull: false, name: 'userId' },
+  onDelete: 'CASCADE'
+});
+
+Property.belongsTo(User, { as: 'user', foreignKey: 'userId' });
