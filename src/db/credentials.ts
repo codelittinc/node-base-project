@@ -7,7 +7,8 @@ export function getDatabaseConfig() {
     DB_PASSWORD,
     DB_HOST,
     DB_SQLLOG,
-    DB_SSL
+    DB_SSL,
+    DB_MAX_CONNECTIONS
   } = process.env;
 
   const base = {
@@ -16,7 +17,8 @@ export function getDatabaseConfig() {
     host: DB_HOST,
     databaseName: DB_DATABASE || 'node_graphql',
     sqlLog: DB_SQLLOG === 'true',
-    ssl: DB_SSL === 'true'
+    ssl: DB_SSL === 'true',
+    maxConnections: DB_MAX_CONNECTIONS ? parseInt(DB_MAX_CONNECTIONS) : 5
   };
 
   const development = {
