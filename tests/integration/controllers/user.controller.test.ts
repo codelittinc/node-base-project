@@ -14,7 +14,7 @@ describe('UsersController', () => {
         .get(`/users`)
         .send();
 
-      return expect(body[0].name).toBe(user.name);
+      expect(body[0].name).toBe(user.name);
     });
   });
 
@@ -26,14 +26,14 @@ describe('UsersController', () => {
         .get(`/users/${user!.id}`)
         .send();
 
-      return expect(body.name).toBe(user.name);
+      expect(body.name).toBe(user.name);
     });
 
     it('with a non-existing id it returns 404', async () => {
       const { body } = await request(getApp())
         .get(`/users/${nonExistingId}`)
         .send();
-      return expect(body.code).toBe(404);
+      expect(body.code).toBe(404);
     });
   });
 
@@ -42,14 +42,14 @@ describe('UsersController', () => {
       const { body } = await request(getApp())
         .post('/users')
         .send(userFactory.build());
-      return expect(body.id).toBeTruthy();
+      expect(body.id).toBeTruthy();
     });
 
     it('with empty params it returns 400', async () => {
       const { body } = await request(getApp())
         .post('/users')
         .send();
-      return expect(body.code).toBe(400);
+      expect(body.code).toBe(400);
     });
 
     it('with invalid params it returns 400', async () => {
@@ -60,7 +60,7 @@ describe('UsersController', () => {
             name: userFactory.getFaker().random.alphaNumeric(129)
           })
         );
-      return expect(body.code).toBe(400);
+      expect(body.code).toBe(400);
     });
   });
 
@@ -72,14 +72,14 @@ describe('UsersController', () => {
         .patch(`/users/${user!.id}`)
         .send(userFactory.build());
 
-      return expect(user.name).not.toEqual(body.name);
+      expect(user.name).not.toEqual(body.name);
     });
 
     it('with a non-existing id it returns 404', async () => {
       const { body } = await request(getApp())
         .patch(`/users/${nonExistingId}`)
         .send();
-      return expect(body.code).toBe(404);
+      expect(body.code).toBe(404);
     });
 
     it('with invalid params it returns 400', async () => {
@@ -91,7 +91,7 @@ describe('UsersController', () => {
             name: userFactory.getFaker().random.alphaNumeric(129)
           })
         );
-      return expect(body.code).toBe(400);
+      expect(body.code).toBe(400);
     });
   });
 
@@ -103,14 +103,14 @@ describe('UsersController', () => {
         .delete(`/users/${user!.id}`)
         .send();
 
-      return expect(body.count).toBe(1);
+      expect(body.count).toBe(1);
     });
 
     it('when the user doesn`t exist it returns 404', async () => {
       const { body } = await request(getApp())
         .delete(`/users/${nonExistingId}`)
         .send();
-      return expect(body.code).toBe(404);
+      expect(body.code).toBe(404);
     });
   });
 });

@@ -157,6 +157,8 @@ This configuration will override whatever is on `env.test`.
 
 Do not store sensible information on the `.env` files.
 
+For free DB that have connection limits like `ElephantSQL` you can provide a `DB_MAX_CONNECTIONS` value on the build variables to avoid getting `too many connections` errors.
+
 ##### Forcing test build to run on PRs
 
 To avoid any PR to be merged without the test build successfully ran, you can configure that on the github repository's branch settings.
