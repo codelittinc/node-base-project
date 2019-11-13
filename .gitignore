@@ -78,3 +78,5 @@ src/**/*.js*
 tests/**/*.js*
 index.js*
 
+# IDE files
+.idea
