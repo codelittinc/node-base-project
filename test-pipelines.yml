@@ -23,6 +23,13 @@ steps:
     displayName: 'npm build'
 
   - script: |
+      npm run lint
+      if [ $? -ne 0 ]; then
+        exit 1
+      fi
+    displayName: 'npm lint'
+
+  - script: |
       npm run test:unit:ci
       if [ $? -ne 0 ]; then
         exit 1
