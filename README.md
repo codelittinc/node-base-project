@@ -129,15 +129,32 @@ the reason for it is that we are going to use all azure services and the integra
 It provides a easy and friendly UI to crete builds, track their progress, issues and understand what is being released.
 After installing Azure Pipelines on the repository we are going to be redirected to a **Azure DevOps portal**, this will be where we are going to manage everything for that user.
 
+### Create a project
+
+To start with continuous integration, the first thing you need to do is create a new project on your Azure DevOps account,
+and after you need to enable the Pipelines service:
+1. Go to https://dev.azure.com/<organization name>
+2. Create a new private project.
+
+Now that we have the project created, we need to enable the Pipelines service on it:
+3. Go to the Project Settings page by hovering the project name and clicking on the cog button.
+4. Under the Services section enable the Pipelines service.
+
 ### Configuration
 
 Even though configurations can be done using the UI provided by **Azure DevOps**, we opt to use yml files like `test-pipeline.yml` or `build-pipeline.yml`.
 The reasoning is to track the configuration and easily migrate to any other repository or project.
 Also we can provide different configurations for different providers and the base project will be capable of be deployed to any of the available providers.
 
-#### Create build in Azure DevOps.
+#### Create build in Azure DevOps
 
-When creating a new build, we can import settings from a **yml** file, use the `test-pipeline.yml` as the config file and will import use those tasks to provide the build steps.
+When creating a new build, we can import settings from a **yml** file, use the `test-pipeline.yml` as the config file, and it will use it to provide the build steps.
+
+Under the Pipeline menu you can create a _new build pipeline_. This process is done with 4 steps:
+1. You need to connect Azure to our Github repository. So, select the **Github YAML** option.
+2. Select this project's repository.
+3. Select the option: **Existing Azure Pipelines YAML file**. It will open a form where you need to select the `test-piline.yml` from the git repository.
+4. Test the pipeline and finish.
 
 #### Test configuration
 
@@ -155,9 +172,7 @@ To configure the database on the task, edit the build settings and access the va
 Add configuration settings for `DB_DATABASE`, `DB_HOST`, `DB_USER` & `DB_PASSWORD`.
 This configuration will override whatever is on `env.test`.
 
-Do not store sensible information on the `.env` files.
-
-For free DB that have connection limits like `ElephantSQL` you can provide a `DB_MAX_CONNECTIONS` value on the build variables to avoid getting `too many connections` errors.
+Do not store sensible information in the `.env` files.
 
 ##### Forcing test build to run on PRs
 
@@ -174,7 +189,7 @@ To configure that you have to update the `azureContainerRegistry` property, with
 
 ##### Container registry
 
-For the porpouse of reviewing full azure integration we have setted up a **Azure Container Registry**.
+For the purpose of reviewing full azure integration we have setted up a **Azure Container Registry**.
 For that we have created the corresponding resource on azure, and once created we have to do some small configurations:
 
 - Enable Admin access, from the Security Tab.
@@ -186,12 +201,12 @@ When configuring access to this registry from Azure Pipelines, the microsoft wiz
 
 ### Introduction
 
-The deployed solution consist of a PostgreSQL database and a NodeJS application, this solution can be deployed in different ways using docker containers or even as basic webapp running node.
-For now we have configured different docker container settings
+The deployed solution consist of a PostgreSQL database and a NodeJS application. This solution can be deployed in different ways using docker containers or even as a basic webapp running Node.js.
+For now we have configured different docker container settings.
 
-### Docker Single Container.
+### Docker Single Container
 
-The dokcer single container configuration uses the image configured with the specific tag, applications settings and run it. Is important that the image exposes port 8080 or 80, so this is mapped from the image. This is a limitation of azure.
+The Docker single container configuration uses the image configured with the specific tag, applications settings and run it. Is important that the image exposes port 8080 or 80, so this is mapped from the image. This is a limitation of azure.
 
 **Extra considerations:**
 
@@ -203,7 +218,8 @@ The dokcer single container configuration uses the image configured with the spe
 
 #### Release Job
 
-The release job is automatically triggered after a deployment build completes, and executes the first stage as part of the Continuous deployment process. Normally this will deploy to the DEV environment, and force for authorization on the following environments.
+The release job is automatically triggered after a deployment build completes, and executes the first stage as part of the Continuous deployment process. Normally this will deploy to the DEV environment, 
+and force for authorization on the following environments.
 
 The job consists on a set of **steps** for each **stage**.
 For now we are only using one step for this release, but database specific jobs like migrations can be run as part of the release process.
@@ -221,7 +237,7 @@ Also this settings can be provided on the Container deployment task using the `A
 
 #### Setting up a Azure PostgreSQL Database
 
-First create the Azure Postgre database service thats provided by microsoft. For now we have setted up a basic database with 2 GB for this starter.
+First create the Azure PostgreSQL database service that is provided by microsoft. For now we have setted up a basic database with 2 GB for this starter.
 
 _Other configurations_
 
