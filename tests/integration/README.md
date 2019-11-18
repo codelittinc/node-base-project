@@ -42,12 +42,13 @@ Each test will have to create their own data to test specific the porpouse of th
 - Keep in mind that the test are run under the `NODE_ENV=test`, which could affect the way the classes are initialized. All changes will be reflected on the `env.test` database.
 - When running integrations test outside docker, you will need to update the `DB_HOST` to `localhost` since it won't be running under the `db` name, which is the specific database name under the docker network.
 
-## What are factories?
+## What is a factory?
 
 Factories work as `Fixtures` for tests, it centralize the `Model` build process and creation, generating fake random data for the necessary properties.
 
-All factories should extend from the `BaseFactory` to get the basic functionallity and implement their own `build` method with the default props for that model.
-As an example checkout `UserFactory`.
+In this project we are using the `factory-bot` dependency which uses a single factory entity, that support different `definitions` for each model, each model will append its definitions to the factory singleton, and set the props builders descriptors.
+
+As an example checkout the `Property.definition`.
 
 ## Folder structure
 
