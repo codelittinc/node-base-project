@@ -82,7 +82,8 @@ async function cmdStatus(umzug: Umzug) {
 
 async function cmdCreateMigration(folder: string) {
   const today = new Date();
-  const day = today.getDate();
+  const d = today.getDate();
+  const day = d < 10 ? `0${d}` : d;
   const monthIndex = today.getMonth() + 1;
   const month = monthIndex < 10 ? `0${monthIndex}` : monthIndex;
   const year = today.getFullYear();
