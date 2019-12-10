@@ -2,7 +2,7 @@
 
 ## General Guidelines
 
-- When creating a new test, we want to be easy to understand where its issue. For that matter we have created the following definition to set as `describes`.
+When creating a new test, we want to quickly understand where it is issued. For that matter we have created the following definition to set as `describes`.
 
 `Class` > `#method` > `expected result` > `conditions for that result`
 
@@ -35,7 +35,7 @@ npm run test:integration
 ## Configuration
 
 Currently the initial configuration wipes the information from the database before each test, creating a data isolation for each test to avoid taking into account any other data.
-Each test will have to create their own data to test specific the porpouse of that definition.
+Each test will have to create their own data to test specifically the purpose of that definition.
 
 ### Environment
 
@@ -44,11 +44,10 @@ Each test will have to create their own data to test specific the porpouse of th
 
 ## What is a factory?
 
-Factories work as `Fixtures` for tests, it centralize the `Model` build process and creation, generating fake random data for the necessary properties.
+Factories work as `Fixtures` for tests, they centralize the `Model` build process and creation, generating fake random data for the necessary properties.
 
-In this project we are using the `factory-bot` dependency which uses a single factory entity, that support different `definitions` for each model, each model will append its definitions to the factory singleton, and set the props builders descriptors.
-
-As an example checkout the `Property.definition`.
+All factories should define their model based on the `factory` from `factory-bot` dependency, to set the props builders.
+As an example, check out the `Property.definition`.
 
 ## Folder structure
 
@@ -57,7 +56,7 @@ As an example checkout the `Property.definition`.
     ├── factories               # Model's Factories
     ├── models                  # Tests for Models
     ├── setup                   # Configurations for tests
-    ├── setup/index             # Entrypoint for jest confguration.
+    ├── setup/index             # Entrypoint for jest configuration.
     └── README.md
 
 ## More information

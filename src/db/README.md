@@ -2,21 +2,28 @@
 
 ## Library (ORM) used
 
-Sequelize is an Object-Relation Mapping (ORM) library that allows us to treat the relational database as objects in our application.
-
-For more information about [Sequelize](https://sequelize.org/)
+[Sequelize](https://sequelize.org/) is an Object-Relation Mapping (ORM) library that allows us to treat the relational database as objects in our application.
 
 ### Creating a Model
 
-As we mention Sequelize allow us to map **TS Classes** to a **Databse Table**, for that we have to create a **Model**.
-To create a model add a ts file inside the `src/models` folder, as `NAME.model.ts`, where NAME could be `purchase` or `paymentType`.
+As we mentioned, Sequelize allow us to map **TypeScript Classes** to a **Database Table**, for that we have to create a **Model**.
+To create a model add a .ts file inside the `src/models` folder, as `NAME.model.ts`, where NAME could be `purchase` or `paymentType`.
 
-Models must extend from the **sequelize** Model class, to get the full db access functionallity such as `create`, `find` or `delete`.
+Models must extend from the **sequelize** Model class, to get the full db access functionality such as `create`, `find` or `delete`.
 Apart from extending the Sequelize class and adding the model's properties we must define the corresponding `DataTypes` to let Sequelize understand the relation between our class and the corresponding table.
 
-Table name should always be in plural.
+Table names should always be in plural.
 
 ```ts
+import { DataTypes } from 'sequelize';
+import { database } from '@db';
+import BaseModel from '@models/base.model';
+
+export class Purchase extends BaseModel {
+  public id!: number;
+  public name!: string;
+}
+
 Purchase.init(
   {
     id: {
@@ -39,19 +46,29 @@ Purchase.init(
 #### Adding it to the Database
 
 Apart from creating the model, since we use migrations, we have to create the corresponding **Database Table**.
-Create a migration for that:
+For that, you should create a **schema migration** using the following command:
 
 ```shell
-name=purchase npm run db:migrate create
+NAME=purchase npm run db:migrate:schema create
 ```
 
-Inside the `yyyyymmdd.purchase.up.sql` add the Table creation SQL statement. Keys and Indexes should also be addded.
+Inside the file `yyyyymmdd.purchase.up.sql` add the SQL statement that creates the table. Keys and Indexes should also be added.
 
-To update your database just run:
+To update your database then just run:
 
 ```shell
-npm run db:migrate up
+npm run db:migrate:schema up
 ```
+
+Also, make sure to add the SQL statement to perform the opposite job in `yyyyymmdd.purchase.down.sql`.
+For instance, if your UP migration creates a table, the DOWN migration would typically delete it.
+The command to run the DOWN migration is alike:
+
+```shell
+npm run db:migrate:schema down
+``` 
+
+For more information check out the [**migrations**](#migrations) section.
 
 ## Configuration
 
@@ -89,25 +106,22 @@ A seed is a specific collection of models / entities that will populate the DB, 
 
 ### How can I create a Seed?
 
-Seeds can be created easily as TS files under the `db/seeds` folder. When creating a seed we just export a default function with the business logic to fullfil that seed.
+Seeds can be created easily as TS files under the `db/seeds` folder. When creating a seed we just export a default function with the business logic to fulfill that seed.
 As an example checkout the `user.seed.ts`, this will populate the `Users` table with some users.
 
 ### Do I want to create a seed?
 
-Seeds are for intial and testing porpouses, so creating seeds will only be related to Development porpouses.
-If you have created a entity that needs data by default required by the application, you don't need a **seed** you need a **Data Migration**.
+Seeds are for initial and testing purposes, so creating seeds will only be related to development purposes.
+If you have created a entity that needs data by default required by the application, you don't need a **seed**, you need a **Data Migration**.
 
 Examples:
 
-_Seed:_
-I have created a `Purchase History` view and it would be intresting to have prepopulated that view by default. This way all developers could see this view's functionallity without having to go through the full purchase flow.
-
-_Data Migration:_
-I have created the `PaymentType` entity that can be `Cash` or `Credit Card` and this should be added to all environments, most importantly **production**.
+- _Seed_: I have created a `Purchase History` view and it would be interesting to have pre-populated that view by default. This way all developers could see this view's functionality without having to go through the full purchase flow.
+- _Data Migration_: I have created the `PaymentType` entity that can be `Cash` or `Credit Card` and this should be added to all environments, most importantly **production**.
 
 ## Configuration
 
 ### Production
 
-Using Azure PostgresSQL database service we have to use ssl between the client and the service to connect to the database.
+Azure PostgreSQL requires SSL to be enabled between the client and the service, otherwise it won't be possible to connect to the database.
 For that we have configured on production environment to have the `DB_SSL` with **true** value, keep that in mind when connecting from a different environment.
