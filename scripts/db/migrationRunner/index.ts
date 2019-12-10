@@ -126,13 +126,13 @@ export function getMigrationsConfig(type: string) {
       path: migrationsPath,
       params: [database.getQueryInterface(), Sequelize],
       pattern: /\.(up.sql|js)$/,
-      customResolver: path => {
-        if (path.includes('.js')) {
-          return require(path);
+      customResolver: filePath => {
+        if (filePath.includes('.js')) {
+          return require(filePath);
         }
-        const downPath = path.replace('up', 'down');
+        const downPath = filePath.replace('up', 'down');
         return {
-          up: () => database.query(fs.readFileSync(path, 'utf-8')),
+          up: () => database.query(fs.readFileSync(filePath, 'utf-8')),
           down: () => database.query(fs.readFileSync(downPath, 'utf-8'))
         };
       }

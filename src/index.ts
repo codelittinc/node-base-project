@@ -17,7 +17,9 @@ export function start() {
   const PORT = SERVER_PORT || 9090;
 
   const server = app.listen(PORT, () => {
-    if (NODE_ENV !== 'test') console.log(`Server listening on PORT ${PORT}`);
+    if (NODE_ENV !== 'test') {
+      console.log(`Server listening on PORT ${PORT}`);
+    }
   });
 
   return server;

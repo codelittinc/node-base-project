@@ -1,17 +1,73 @@
 {
-  "extends": ["tslint-plugin-prettier"],
+  "extends": [
+    "tslint-plugin-prettier"
+  ],
   "rules": {
-    "no-commented-out-code": false,
     "prettier": [
       true,
       {
         "printWidth": 80,
+        "semi": true,
         "singleQuote": true,
-        "semi": true
+        "tabWidth": 2,
+        "useTabs": false
       }
-    ]
+    ],
+    "array-type": [
+      true,
+      "array"
+    ],
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "curly": true,
+    "interface-over-type-literal": true,
+    "label-position": true,
+    "member-access": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "instance-field",
+          "instance-method",
+          "static-field",
+          "static-method"
+        ]
+      }
+    ],
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-commented-out-code": false,
+    "no-construct": true,
+    "no-empty-interface": true,
+    "no-eval": true,
+    "no-for-in": true,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
+    "no-misused-new": true,
+    "no-shadowed-variable": true,
+    "no-unused-expression": true,
+    "no-var-keyword": true,
+    "prefer-const": true,
+    "triple-equals": true,
+    "unnecessary-else": true,
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore",
+        "ban-keywords",
+        "check-format"
+      ]
+    }
   },
   "linterOptions": {
-    "exclude": ["./**/*.js", "./**/*.sql"]
+    "exclude": [
+      "node_modules",
+      "./**/*.js",
+      "./**/*.sql"
+    ]
   }
 }

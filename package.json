@@ -22,7 +22,8 @@
     "docker:start:dev": "docker-compose up -d && docker exec -it node-graphql-app bash",
     "docker:build": "docker-compose build",
     "docker:stop": "docker-compose down",
-    "lint": "tslint **/*.ts",
+    "lint": "tslint \"{src,tests,scripts}/**/*.ts\"",
+    "lint:fix": "tslint \"{src,tests,scripts}/**/*.ts\" --fix",
     "build": "npm run build:tsc",
     "build:tsc": "tsc",
     "prettier:format": "prettier --write \"src/**/*.+(ts|tsx|json|css)\" \"src/**/*.test.ts\"",
@@ -90,7 +91,7 @@
     "ts-jest": "^24.1.0",
     "ts-node": "^6.0.3",
     "tsconfig-paths": "^3.9.0",
-    "tslint": "^5.10.0",
+    "tslint": "^5.20.1",
     "tslint-language-service": "^0.9.9",
     "tslint-plugin-prettier": "^1.3.0",
     "typescript": "^3.5.0",
@@ -99,7 +100,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:format && npm run lint"
+      "pre-commit": "npm run lint:fix && npm run lint"
     }
   }
 }

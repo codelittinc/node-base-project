@@ -36,9 +36,10 @@ export function getDatabaseConfig() {
 
   const { NODE_ENV } = process.env;
 
-  if (NODE_ENV == 'production') {
+  if (NODE_ENV === 'production') {
     return production;
-  } else if (NODE_ENV == 'test') {
+  }
+  if (NODE_ENV === 'test') {
     return test;
   }
 
