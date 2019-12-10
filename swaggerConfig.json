@@ -4,8 +4,8 @@
     "entryFile": "./src/controllers/*.ts",
     "outputFormat": "openapi_3",
     "version": "1.0",
-    "name": "Node & GraphQL base starter",
-    "description": "Node & GraphQL base starter - description",
+    "name": "Node & API REST base starter",
+    "description": "Node & API REST base starter - description",
     "license": "MIT",
     "basePath": "/",
     "securityDefinitions": {

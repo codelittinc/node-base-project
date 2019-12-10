@@ -79,8 +79,7 @@
 			},
 			"type": "object",
 			"required": [
-				"name",
-				"properties"
+				"name"
 			]
 		},
 		"NotFoundError": {
@@ -176,11 +175,11 @@
 		}
 	},
 	"info": {
-		"description": "Node & GraphQL base starter - description",
+		"description": "Node & API REST base starter - description",
 		"license": {
 			"name": "MIT"
 		},
-		"title": "Node & GraphQL base starter",
+		"title": "Node & API REST base starter",
 		"version": "1.0"
 	},
 	"paths": {
