@@ -2,7 +2,7 @@
 
 ## General Guidelines
 
-- Review basic unit functionallity over methods that are isolated and not data related
+- Review basic unit functionality over methods that are isolated and not data related
 - Avoid wrapping too many definitions under the same describe.
 - Don't over test methods.
 - Don't add test for libraries
