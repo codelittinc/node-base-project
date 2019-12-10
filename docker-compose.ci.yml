@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     image: postgres
-    container_name: node-graphql-db
+    container_name: node-api-db
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USER}
@@ -12,19 +12,19 @@ services:
     # volumes:
     #   - postgres-data:/var/lib/postgresql/data
     networks:
-      - node-graphql-api
+      - node-api
     expose:
       - 5432
 
   app:
-    container_name: node-graphql-app
+    container_name: node-api
     tty: true
     stdin_open: true
     build:
       context: ./
       dockerfile: Dockerfile.prod
     networks:
-      - node-graphql-api
+      - node-api
     volumes:
       - .:/share
     ports:
@@ -33,7 +33,7 @@ services:
       - db
 
 networks:
-  node-graphql-api:
+  node-api:
 
 volumes:
   postgres-data:

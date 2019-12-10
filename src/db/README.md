@@ -77,7 +77,7 @@ The current configuration example is this:
 ```conf
 # Database
 DB_HOST=localhost
-DB_DATABASE=node_graphql
+DB_DATABASE=node_api
 DB_USER=postgres
 DB_PASSWORD=postgres
 DB_SQLLOG=false
