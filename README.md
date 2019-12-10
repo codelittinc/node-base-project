@@ -28,7 +28,7 @@ This is basic Nodejs project starter. Its goal is to offer a simple way to start
 6. run `npm run db:create:all`
 7. run `npm start`
 
-visit `http://localhost:9091/graphql`
+visit `http://localhost:9090/docs`
 
 ## Tests
 
