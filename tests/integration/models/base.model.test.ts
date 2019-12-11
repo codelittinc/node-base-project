@@ -1,4 +1,4 @@
-import { User as BaseModel } from '@models/user.model';
+import { User as BaseModel } from '@models';
 import Factory from '../factory';
 
 /*
