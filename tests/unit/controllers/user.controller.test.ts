@@ -1,5 +1,5 @@
 import { getApp } from '@server';
-import { User } from '@models/UserModel';
+import { User } from '@models';
 import * as request from 'supertest';
 
 describe('UsersController', () => {
