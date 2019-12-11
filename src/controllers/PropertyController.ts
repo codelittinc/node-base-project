@@ -1,4 +1,4 @@
-import { Property } from '@models/PropertyModel';
+import { Property } from '@models/property.model';
 import {
   Path,
   GET,
