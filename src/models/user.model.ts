@@ -22,7 +22,7 @@ export class User extends BaseModel {
     return User.findOne(queryOpts);
   }
 
-  static getFindOptions(): FindOptions {
+  public static getFindOptions(): FindOptions {
     return {
       include: [
         {

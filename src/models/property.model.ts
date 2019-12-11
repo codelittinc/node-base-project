@@ -16,7 +16,7 @@ export class Property extends BaseModel {
     user: Association<Property, User>;
   };
 
-  static getFindOptions(): FindOptions {
+  public static getFindOptions(): FindOptions {
     return {
       include: [
         {
