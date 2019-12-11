@@ -17,7 +17,7 @@ Table names should always be in plural.
 ```ts
 import { DataTypes } from 'sequelize';
 import { database } from '@db';
-import BaseModel from '@models/base.model';
+import BaseModel from '@models';
 
 export class Purchase extends BaseModel {
   public id!: number;

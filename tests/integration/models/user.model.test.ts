@@ -1,4 +1,4 @@
-import { User } from '@models/user.model';
+import { User } from '@models';
 import Factory from '../factory';
 
 describe('User', () => {
