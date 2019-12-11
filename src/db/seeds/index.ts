@@ -1,4 +1,4 @@
 import UserSeed from './usersSeed';
-import PropertySeed from './propertiesSeed';
+import PropertySeed from './propertySeed';
 
 export default [UserSeed, PropertySeed];
