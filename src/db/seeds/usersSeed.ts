@@ -1,4 +1,4 @@
-import { User } from '@models/user.model';
+import { User } from '@models';
 
 export default async () => {
   console.log('Running user seed');

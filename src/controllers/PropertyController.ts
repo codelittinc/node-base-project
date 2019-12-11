@@ -1,4 +1,4 @@
-import { Property } from '@models/property.model';
+import { Property } from '@models';
 import {
   Path,
   GET,
@@ -37,7 +37,7 @@ export class PropertiesController {
   @GET
   @Response<IPropertyRead>(200, 'Retrieve a property.', propertyReadExample)
   @Response<NotFoundError>(404, 'property not found')
-  async show(@PathParam('id') id: number): Promise<IPropertyRead> {
+  public async show(@PathParam('id') id: number): Promise<IPropertyRead> {
     const property = await Property.get(id);
     if (property) {
       return property;
@@ -50,7 +50,7 @@ export class PropertiesController {
    */
   @POST
   @Response<IPropertyWrite>(201, 'Created property', propertyWriteExample)
-  async create(property: IPropertyWrite) {
+  public async create(property: IPropertyWrite) {
     return await Property.create(property);
   }
 
@@ -65,7 +65,7 @@ export class PropertiesController {
     'Update the property that was sent',
     propertyWriteExample
   )
-  async update(
+  public async update(
     @PathParam('id') id: number,
     property: IPropertyWrite
   ): Promise<IPropertyWrite | null> {
@@ -83,7 +83,7 @@ export class PropertiesController {
   @Path('/:id')
   @DELETE
   @Response<CountResponse>(200, 'property was deleted')
-  async delete(@PathParam('id') id: number): Promise<CountResponse> {
+  public async delete(@PathParam('id') id: number): Promise<CountResponse> {
     const result = await Property.deleteOne(id);
     if (result) {
       return new CountResponse(result);

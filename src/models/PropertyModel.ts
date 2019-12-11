@@ -1,7 +1,7 @@
 import { DataTypes, FindOptions, Association } from 'sequelize';
 import { database } from '@db';
-import { User } from './user.model';
-import BaseModel from './base.model';
+import { User } from './UserModel';
+import BaseModel from './BaseModel';
 
 export class Property extends BaseModel {
   public id!: number;
@@ -16,7 +16,7 @@ export class Property extends BaseModel {
     user: Association<Property, User>;
   };
 
-  static getFindOptions(): FindOptions {
+  public static getFindOptions(): FindOptions {
     return {
       include: [
         {
