@@ -1,2 +1,2 @@
-export { User } from './user.model';
-export { Property } from './property.model';
+export { User } from './UserModel';
+export { Property } from './PropertyModel';

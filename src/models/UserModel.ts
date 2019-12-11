@@ -1,7 +1,7 @@
 import { DataTypes, FindOptions, Association } from 'sequelize';
 import { database } from '@db';
-import BaseModel from './base.model';
-import { Property } from './property.model';
+import BaseModel from './BaseModel';
+import { Property } from './PropertyModel';
 
 export class User extends BaseModel {
   public id!: number;
