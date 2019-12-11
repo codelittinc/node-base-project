@@ -1,4 +1,4 @@
-import { User } from '@models/user.model';
+import { User } from '@models/UserModel';
 import {
   Path,
   GET,
@@ -23,7 +23,7 @@ export class UsersController {
    */
   @GET
   @Response<IUser[]>(200, 'Retrieve a list of users.', [userExample])
-  async list() {
+  public async list() {
     return await User.getAll();
   }
 
@@ -35,7 +35,7 @@ export class UsersController {
   @GET
   @Response<IUser>(200, 'Retrieve a user.', userExample)
   @Response<NotFoundError>(404, 'User not found')
-  async show(@PathParam('id') id: number): Promise<IUser> {
+  public async show(@PathParam('id') id: number): Promise<IUser> {
     const user = await User.get(id);
     if (user) {
       return user;
@@ -48,7 +48,7 @@ export class UsersController {
    */
   @POST
   @Response<IUser>(201, 'Created user', userExample)
-  async create(user: IUser) {
+  public async create(user: IUser) {
     return await User.create(user);
   }
 
@@ -59,7 +59,7 @@ export class UsersController {
   @Path('/:id')
   @PATCH
   @Response<IUser>(200, 'Update the user that was sent', userExample)
-  async update(
+  public async update(
     @PathParam('id') id: number,
     user: IUser
   ): Promise<IUser | null> {
@@ -77,7 +77,7 @@ export class UsersController {
   @Path('/:id')
   @DELETE
   @Response<CountResponse>(200, 'User was deleted')
-  async delete(@PathParam('id') id: number): Promise<CountResponse> {
+  public async delete(@PathParam('id') id: number): Promise<CountResponse> {
     const result = await User.deleteOne(id);
     if (result) {
       return new CountResponse(result);

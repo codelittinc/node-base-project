@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import { Server } from 'typescript-rest';
 import * as swaggerUi from 'swagger-ui-express';
 import * as Controllers from '@controllers/index';
-import exceptionResolver from './exception.resolver';
+import exceptionResolver from './exceptionResolver';
 
 const swaggerDocument = require('../../swagger.json');
 
