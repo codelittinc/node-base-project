@@ -94,7 +94,7 @@ the reason for it is that we are going to use all azure services and the integra
 
 ## Naming convention for files
 
-Please use camelCase for files and folders names.
+The project is following AirBnb file name conventions, please refer to https://github.com/airbnb/javascript#naming-conventions
 
 ### Introduction
 
