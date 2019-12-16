@@ -1,12 +1,11 @@
 import * as Umzug from 'umzug';
-import * as child_process from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Sequelize } from 'sequelize';
 
-import { getConfig } from '@config';
 import { loadEnvVars } from '@config/initializers/envVars';
 import { database } from '@db';
+import { createDatabase, dropDatabase } from '../setup';
 
 const capitalize = str =>
   str.charAt(0).toUpperCase() + str.toLowerCase().slice(1);
@@ -44,24 +43,9 @@ async function cmdResetPrev(umzug: Umzug) {
   return umzug.down({ to: prev });
 }
 
-function cmdHardReset() {
-  const DB_NAME = getConfig().database.databaseName;
-  const DB_USER = getConfig().database.user;
-
-  return new Promise((resolve, reject) => {
-    setImmediate(() => {
-      try {
-        console.log(`dropdb ${DB_NAME}`);
-        child_process.spawnSync(`dropdb ${DB_NAME}`);
-        console.log(`createdb ${DB_NAME} --username ${DB_USER}`);
-        child_process.spawnSync(`createdb ${DB_NAME} --username ${DB_USER}`);
-        resolve();
-      } catch (e) {
-        console.log(e);
-        reject(e);
-      }
-    });
-  });
+async function cmdHardReset() {
+  await dropDatabase();
+  await createDatabase();
 }
 
 async function cmdStatus(umzug: Umzug) {
