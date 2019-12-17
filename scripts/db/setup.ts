@@ -7,14 +7,14 @@ import { loadEnvVars } from '@config/initializers/envVars';
 
 const findDatabase = async (pool, databaseName) => {
   return await pool.query(
-    `SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('${databaseName}');`
+    `SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('${databaseName}');`,
   );
 };
 
 const getPool = () => {
   return new Pool({
     connectionString: `${getConnURI()}/postgres`,
-    ssl: getDatabaseConfig().ssl
+    ssl: getDatabaseConfig().ssl,
   });
 };
 

@@ -5,7 +5,7 @@ abstract class BaseModel extends Model {
     const updateOpts: UpdateOptions = {
       where: { id: instance.id },
       limit: 1,
-      returning: true
+      returning: true,
     };
 
     const result = await (this as any).update(instance, updateOpts);
@@ -18,7 +18,7 @@ abstract class BaseModel extends Model {
   public static async deleteOne(id: number): Promise<number> {
     const deleteOpts: DestroyOptions = {
       where: { id },
-      limit: 1
+      limit: 1,
     };
 
     return (this as any).destroy(deleteOpts);
@@ -26,13 +26,13 @@ abstract class BaseModel extends Model {
 
   public static async get(
     id: number,
-    options?: FindOptions | undefined
+    options?: FindOptions | undefined,
   ): Promise<any | null> {
     return await (this as any).findByPk(id, options || this.getFindOptions());
   }
 
   public static async getAll(
-    options?: FindOptions | undefined
+    options?: FindOptions | undefined,
   ): Promise<any[]> {
     return await (this as any).findAll(options || this.getFindOptions());
   }

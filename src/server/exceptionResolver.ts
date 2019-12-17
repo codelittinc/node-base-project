@@ -7,7 +7,7 @@ export default function exceptionResolver(
   err: any,
   _req: express.Request,
   res: express.Response,
-  next: express.NextFunction
+  next: express.NextFunction,
 ) {
   if (err instanceof Errors.HttpError) {
     if (res.headersSent) {

@@ -12,7 +12,7 @@ describe('Property', () => {
       it('creates a property for a specific user', async () => {
         const user = await Factory.create('user');
         const property = await Factory.create('property', {
-          userId: user.id
+          userId: user.id,
         });
         expect(property!.userId).toBe(user.id);
       });

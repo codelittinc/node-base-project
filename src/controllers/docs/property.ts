@@ -7,15 +7,15 @@ const basePropertyExample = {
   updatedAt: new Date(),
   name: '5th Avenue',
   minRent: 100.5,
-  maxRent: 10000
+  maxRent: 10000,
 };
 
 export const propertyReadExample: IPropertyRead = {
   ...basePropertyExample,
-  user: baseUserExample
+  user: baseUserExample,
 };
 
 export const propertyWriteExample: IPropertyWrite = {
   ...basePropertyExample,
-  userId: baseUserExample.id!
+  userId: baseUserExample.id!,
 };

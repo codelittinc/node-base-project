@@ -5,9 +5,9 @@ jest.mock('@config', () => ({
   applyConfig: jest.fn(),
   getConfig: () => ({
     database: {
-      sqlLog: false
-    }
-  })
+      sqlLog: false,
+    },
+  }),
 }));
 
 it('On startup, calls the applyConfig', async () => {

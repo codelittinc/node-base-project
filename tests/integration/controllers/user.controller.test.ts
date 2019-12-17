@@ -55,7 +55,7 @@ describe('UsersController', () => {
 
     it('with invalid params it returns 400', async () => {
       const invalidParams = await Factory.build('user', {
-        name: Factory.chance('string', { length: 129 })
+        name: Factory.chance('string', { length: 129 }),
       });
       const { body } = await request(getApp())
         .post('/users')
@@ -86,7 +86,7 @@ describe('UsersController', () => {
     it('with invalid params it returns 400', async () => {
       const user = await Factory.create('user');
       const invalidParams = await Factory.build('user', {
-        name: Factory.chance('string', { length: 129 })
+        name: Factory.chance('string', { length: 129 }),
       });
       const { body } = await request(getApp())
         .patch(`/users/${user!.id}`)

@@ -6,7 +6,7 @@ import {
   Errors,
   POST,
   PATCH,
-  DELETE
+  DELETE,
 } from 'typescript-rest';
 import { Response, Produces, Tags } from 'typescript-rest-swagger';
 import { NotFoundError } from 'typescript-rest/dist/server/model/errors';
@@ -23,7 +23,7 @@ export class PropertiesController {
    */
   @GET
   @Response<IPropertyRead[]>(200, 'Retrieve a list of properties.', [
-    propertyReadExample
+    propertyReadExample,
   ])
   public async list() {
     return await Property.getAll();
@@ -63,11 +63,11 @@ export class PropertiesController {
   @Response<IPropertyWrite>(
     200,
     'Update the property that was sent',
-    propertyWriteExample
+    propertyWriteExample,
   )
   public async update(
     @PathParam('id') id: number,
-    property: IPropertyWrite
+    property: IPropertyWrite,
   ): Promise<IPropertyWrite | null> {
     const result = await Property.updateOne({ ...property, id });
     if (result) {
