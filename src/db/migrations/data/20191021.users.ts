@@ -5,13 +5,13 @@ const defaultUser = 'Codelitt';
 export default {
   up: async function() {
     await User.create({
-      name: defaultUser
+      name: defaultUser,
     });
   },
   down: async function() {
     const user = await User.findOne({
-      where: { name: defaultUser }
+      where: { name: defaultUser },
     });
     await User.deleteOne(user!.id);
-  }
+  },
 };

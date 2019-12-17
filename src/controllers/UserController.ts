@@ -6,7 +6,7 @@ import {
   Errors,
   POST,
   PATCH,
-  DELETE
+  DELETE,
 } from 'typescript-rest';
 import { Response, Produces, Tags } from 'typescript-rest-swagger';
 import { NotFoundError } from 'typescript-rest/dist/server/model/errors';
@@ -61,7 +61,7 @@ export class UsersController {
   @Response<IUser>(200, 'Update the user that was sent', userExample)
   public async update(
     @PathParam('id') id: number,
-    user: IUser
+    user: IUser,
   ): Promise<IUser | null> {
     const result = await User.updateOne({ ...user, id });
     if (result) {

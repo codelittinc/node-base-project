@@ -16,7 +16,7 @@ export class User extends BaseModel {
 
   public static async findByName(name: string): Promise<User | null> {
     const queryOpts = {
-      where: { name }
+      where: { name },
     };
 
     return User.findOne(queryOpts);
@@ -27,9 +27,9 @@ export class User extends BaseModel {
       include: [
         {
           model: Property,
-          as: 'properties'
-        }
-      ]
+          as: 'properties',
+        },
+      ],
     };
   }
 }
@@ -39,23 +39,23 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: new DataTypes.STRING(128),
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     tableName: 'users',
-    sequelize: database
-  }
+    sequelize: database,
+  },
 );
 
 User.hasMany(Property, {
   as: 'properties',
   foreignKey: { allowNull: false, name: 'userId' },
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
 });
 
 Property.belongsTo(User, { as: 'user', foreignKey: 'userId' });

@@ -5,7 +5,7 @@ import { getApp } from './server';
 
 export function start() {
   console.log(
-    `Starting server in mode: ${process.env.NODE_ENV || 'development'}`
+    `Starting server in mode: ${process.env.NODE_ENV || 'development'}`,
   );
 
   applyConfig();

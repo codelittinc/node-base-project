@@ -11,7 +11,7 @@ export default async () => {
       name: faker.address.streetName(),
       minRent: faker.random.number(1000),
       maxRent: faker.random.number({ min: 1001, max: 10000 }),
-      user
+      user,
     });
   }
 

@@ -15,8 +15,8 @@ export function getApp() {
   app.use(
     bodyParser.urlencoded({
       extended: SERVER_PARSER_EXTENDED === 'true',
-      limit: SERVER_PARSER_LIMIT || '2mb'
-    })
+      limit: SERVER_PARSER_LIMIT || '2mb',
+    }),
   );
   app.use(cors());
 

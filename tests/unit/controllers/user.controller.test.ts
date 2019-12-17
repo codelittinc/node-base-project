@@ -7,8 +7,8 @@ describe('UsersController', () => {
     it('returns a list of users', async () => {
       const expetedUsers = [
         {
-          name: 'Gabriel'
-        }
+          name: 'Gabriel',
+        },
       ];
       const mockGetAll = jest.fn();
       mockGetAll.mockReturnValue(expetedUsers);
@@ -27,7 +27,7 @@ describe('UsersController', () => {
     describe('with an existing id', async () => {
       it('returns the user', async () => {
         const expetedUser = {
-          name: 'Gabriel'
+          name: 'Gabriel',
         };
 
         const mockGet = jest.fn();

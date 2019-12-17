@@ -4,7 +4,7 @@ export const baseUserExample: IUser = {
   id: 1,
   createdAt: new Date(),
   updatedAt: new Date(),
-  name: 'Joe'
+  name: 'Joe',
 };
 export const userExample: IUser = {
   ...baseUserExample,
@@ -14,7 +14,7 @@ export const userExample: IUser = {
       name: '5th Avenue',
       minRent: 1,
       maxRent: 1000,
-      userId: baseUserExample.id!
-    }
-  ]
+      userId: baseUserExample.id!,
+    },
+  ],
 };

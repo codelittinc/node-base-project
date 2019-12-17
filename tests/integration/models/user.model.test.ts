@@ -13,7 +13,7 @@ describe('User', () => {
     describe('with invalid params', () => {
       it('fails to create a user', async () => {
         const userParams = Factory.build('user', {
-          name: Factory.chance('string', { length: 129 })
+          name: Factory.chance('string', { length: 129 }),
         });
 
         await expect(User.create(userParams)).rejects.toThrowError();
@@ -44,7 +44,7 @@ describe('User', () => {
         const user = await Factory.create('user');
         const updatedUser = await User.updateOne({
           id: user.id,
-          name: Factory.chance('string', { length: 100 })()
+          name: Factory.chance('string', { length: 100 })(),
         });
         expect(updatedUser!.name).not.toEqual(user.name);
       });
@@ -56,7 +56,7 @@ describe('User', () => {
 
         const invalidUser = await Factory.build('user', {
           name: Factory.chance('string', { length: 129 }),
-          id: user.id
+          id: user.id,
         });
         await expect(User.updateOne(invalidUser.get())).rejects.toThrowError();
       });

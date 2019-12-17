@@ -56,7 +56,7 @@ async function cmdStatus(umzug: Umzug) {
   const status = {
     current: current,
     executed: executed.map(m => m.file),
-    pending: pending.map(m => m.file)
+    pending: pending.map(m => m.file),
   };
 
   console.log(JSON.stringify(status, null, 2));
@@ -95,14 +95,14 @@ export enum Command {
   CREATE = 'create',
   PREV = 'prev',
   RESET_PREV = 'reset-prev',
-  RESET_HARD = 'reset-hard'
+  RESET_HARD = 'reset-hard',
 }
 
 export function getMigrationsConfig(type: string) {
   const migrationsPath = path.join(
     __dirname,
     '../../../src/db/migrations/',
-    type
+    type,
   );
 
   loadEnvVars();
@@ -118,16 +118,16 @@ export function getMigrationsConfig(type: string) {
         const downPath = filePath.replace('up', 'down');
         return {
           up: () => database.query(fs.readFileSync(filePath, 'utf-8')),
-          down: () => database.query(fs.readFileSync(downPath, 'utf-8'))
+          down: () => database.query(fs.readFileSync(downPath, 'utf-8')),
         };
-      }
+      },
     },
     storage: 'sequelize',
     storageOptions: {
       database,
       sequelize: database,
-      tableName: `_Migrations${capitalize(type)}`
-    }
+      tableName: `_Migrations${capitalize(type)}`,
+    },
   });
 
   umzug.on('migrating', logUmzugEvent('migrating'));

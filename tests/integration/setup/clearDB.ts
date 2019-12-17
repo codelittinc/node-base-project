@@ -5,8 +5,8 @@ export async function clearDB() {
     Object.values(models).map(model => {
       return model.destroy({
         where: {},
-        force: true
+        force: true,
       });
-    })
+    }),
   );
 }

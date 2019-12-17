@@ -8,7 +8,7 @@ export function getDatabaseConfig() {
     DB_HOST,
     DB_SQLLOG,
     DB_SSL,
-    DB_MAX_CONNECTIONS
+    DB_MAX_CONNECTIONS,
   } = process.env;
 
   const base = {
@@ -18,20 +18,20 @@ export function getDatabaseConfig() {
     databaseName: DB_DATABASE || 'node_api',
     sqlLog: DB_SQLLOG === 'true',
     ssl: DB_SSL === 'true',
-    maxConnections: DB_MAX_CONNECTIONS ? parseInt(DB_MAX_CONNECTIONS) : 5
+    maxConnections: DB_MAX_CONNECTIONS ? parseInt(DB_MAX_CONNECTIONS) : 5,
   };
 
   const development = {
-    ...base
+    ...base,
   };
 
   const test = {
     ...base,
-    databaseName: DB_DATABASE || `${base.databaseName}_test`
+    databaseName: DB_DATABASE || `${base.databaseName}_test`,
   };
 
   const production = {
-    ...base
+    ...base,
   };
 
   const { NODE_ENV } = process.env;

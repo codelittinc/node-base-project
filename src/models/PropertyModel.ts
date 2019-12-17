@@ -21,9 +21,9 @@ export class Property extends BaseModel {
       include: [
         {
           model: User,
-          as: 'user'
-        }
-      ]
+          as: 'user',
+        },
+      ],
     };
   }
 }
@@ -33,26 +33,26 @@ Property.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: new DataTypes.STRING(128),
-      allowNull: false
+      allowNull: false,
     },
     minRent: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: false,
     },
     maxRent: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: false,
     },
     userId: {
-      type: DataTypes.INTEGER
-    }
+      type: DataTypes.INTEGER,
+    },
   },
   {
     tableName: 'properties',
-    sequelize: database
-  }
+    sequelize: database,
+  },
 );
