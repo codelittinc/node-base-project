@@ -115,7 +115,7 @@ export function getMigrationsConfig(type: string) {
         if (filePath.includes('.js')) {
           return require(filePath);
         }
-        const downPath = filePath.replace('up', 'down');
+        const downPath = filePath.replace('.up.', '.down.');
         return {
           up: () => database.query(fs.readFileSync(filePath, 'utf-8')),
           down: () => database.query(fs.readFileSync(downPath, 'utf-8')),
