@@ -17,7 +17,7 @@
     "db:seed": "ts-node scripts/db/seed.ts",
     "db:setup": "ts-node scripts/db/setup.ts",
     "db:setup:test": "NODE_ENV=test npm run db:setup",
-    "generate:model": "node scripts/generator/generator.js",
+    "generate:model": "node scripts/generator/index.js",
     "docker:db": "docker-compose up -d db",
     "docker:start": "sh scripts/docker/start.sh",
     "docker:start:dev": "docker-compose up -d && docker exec -it node-api bash",
