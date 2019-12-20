@@ -5,9 +5,9 @@ const handlebars = require('handlebars');
 // Get base model name and reference name from argument
 // TODO: Modular cli arguments based on flags
 if(process.argv.length < 4){
-    console.error("Please specify your model name and you reference model name");
-    console.error("npm run generate:model -- [modelName] [modelReference]");
-    return;
+  console.error("Please specify your model name and you reference model name");
+  console.error("npm run generate:model -- [modelName] [modelReference]");
+  return;
 }
 const baseName = process.argv[2];
 const referenceModelName = process.argv[3];
