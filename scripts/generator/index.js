@@ -4,7 +4,7 @@ const handlebars = require('handlebars');
 // Handy string extensions
 
 function capitalLetterFunc(){
-    return this.charAt(0).toUpperCase() + this.slice(1)
+    return `${this.charAt(0).toUpperCase()}${this.slice(1)}`
 }
 String.prototype.capitalizeFirstLetter = capitalLetterFunc;
 
