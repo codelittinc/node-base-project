@@ -1,0 +1,24 @@
+import { DataTypes } from 'sequelize';
+import { database } from '@db';
+import { BaseModel } from '@models';
+
+export class {{modelName}} extends BaseModel {
+  public id!: number;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+{{modelName}}.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+  },
+  {
+    tableName: '{{table}}',
+    sequelize: database,
+  },
+);
