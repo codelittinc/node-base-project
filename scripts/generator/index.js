@@ -1,6 +1,37 @@
 const fs = require("fs");
 const handlebars = require('handlebars');
 
+// Handy string extensions
+
+function capitalLetterFunc(){
+    return this.charAt(0).toUpperCase() + this.slice(1)
+}
+String.prototype.capitalizeFirstLetter = capitalLetterFunc;
+
+function lowerLetterFunc(){
+    return this.charAt(0).toLowerCase() + this.slice(1);
+}
+String.prototype.lowerFirstLetter = lowerLetterFunc;
+
+function snakeCaseFunc(){
+    return this.toString().replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+}
+String.prototype.toSnakeCase = snakeCaseFunc;
+
+function pascalFunc(){
+    return this.toCamelCase().capitalizeFirstLetter();
+}
+String.prototype.toPascalCase = pascalFunc;
+
+function camelCaseFunc() {
+    // FROM https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
+    return this.toString().replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) => {
+        if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+}
+String.prototype.toCamelCase = camelCaseFunc;
+
 
 // Get base model name and reference name from argument
 // TODO: Modular cli arguments based on flags
@@ -9,9 +40,9 @@ if(process.argv.length < 4){
   console.error("npm run generate:model -- [modelName] [modelReference]");
   return;
 }
-const baseName = process.argv[2];
+const baseName = process.argv[2].toCamelCase();
 const referenceModelName = process.argv[3];
-
+const migration = process.argv.length === 5 ? process.argv[4] : `add_${baseName.toSnakeCase()}s_table`;
 
 const log = {
     err: text => console.log("\x1b[34m%s\x1b[0m", `err: ${text}`),
@@ -27,17 +58,21 @@ const task = {
 const yyyymmdd = new Date().toISOString().split("T")[0].split("-").join("");
 
 // model variables
-const table = `${baseName.charAt(0).toLowerCase() + baseName.slice(1)}s`;
-const modelName = `${baseName.charAt(0).toUpperCase() + baseName.slice(1) }`;
-const lowerModelName = `${baseName.charAt(0).toLowerCase() + baseName.slice(1)}`;
+const table = `${baseName}s`;
+const modelName = baseName.toPascalCase();
+const lowerModelName = baseName;
+const referenceTable = `${referenceModelName.toLowerCase()}s`;
+const constraint = `fk_${baseName.toSnakeCase()}s`;
+
 
 // TODO: Populate variables
-const seedCountVariableName = "TODO_COUNT_SEED";
-const fkColumn = "todoId";
+const seedCountVariableName = `COUNT_${baseName.toSnakeCase().toUpperCase()}S`;
+const fkColumn = `${baseName}Id`;
 
 
 // file names
 const modelFileName = `./src/models/${referenceModelName.toLowerCase()}/${modelName}Model.ts`;
+const migrationFileName = `./src/db/migrations/schema/${yyyymmdd}.${migration}`;
 
 // templates
 const modelFile = fs.readFileSync(
@@ -46,9 +81,34 @@ const modelFile = fs.readFileSync(
 );
 let modelFileContent = handlebars.compile(modelFile);
 
+const upMigrationFile = fs.readFileSync(
+    './scripts/generator/templates/migrationUp.template',
+    'utf8'
+);
+let upMigrationFileContent = handlebars.compile(upMigrationFile);
+
+const downMigrationFile = fs.readFileSync(
+    './scripts/generator/templates/migrationDown.template',
+    'utf8'
+);
+let downMigrationFileContent = handlebars.compile(downMigrationFile);
 
 // Templates processing
 modelFileContent = modelFileContent({modelName: modelName, table: table});
+
+downMigrationFileContent = downMigrationFileContent({
+    referenceTable: referenceTable,
+    constraint: constraint,
+    fkColumn: fkColumn,
+    table: table,
+});
+
+upMigrationFileContent = upMigrationFileContent({
+    referenceTable: referenceTable,
+    constraint: constraint,
+    fkColumn: fkColumn,
+    table: table,
+});
 
 // Generate files
 fs.writeFile(modelFileName, modelFileContent, err => {
@@ -56,6 +116,22 @@ fs.writeFile(modelFileName, modelFileContent, err => {
         log.err("unable to save model file");
     } else {
         log.line("written model file");
+    }
+});
+
+fs.writeFile(`${migrationFileName}.down.sql`, downMigrationFileContent, err => {
+    if (err) {
+        log.err("unable to save DOWN migration");
+    } else {
+        log.line("written DOWN schema migration");
+    }
+});
+
+fs.writeFile(`${migrationFileName}.up.sql`, upMigrationFileContent, err => {
+    if (err) {
+        log.err("unable to save UP migration");
+    } else {
+        log.line("written UP schema migration");
     }
 });
 
