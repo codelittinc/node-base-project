@@ -1,5 +1,6 @@
 const fs = require("fs");
 const handlebars = require('handlebars');
+const pluralize = require('pluralize');
 
 // Handy string extensions
 
@@ -58,15 +59,15 @@ const task = {
 const yyyymmdd = new Date().toISOString().split("T")[0].split("-").join("");
 
 // model variables
-const table = `${baseName}s`;
+const table = pluralize.plural(baseName);
 const modelName = baseName.toPascalCase();
 const lowerModelName = baseName;
-const referenceTable = `${referenceModelName.toLowerCase()}s`;
-const constraint = `fk_${baseName.toSnakeCase()}s`;
+const referenceTable = pluralize.plural(`${referenceModelName.toLowerCase()}`);
+const constraint = `fk_${pluralize.plural(baseName.toSnakeCase())}${pluralize.plural(referenceModelName.toSnakeCase())}`;
 
 
 // TODO: Populate variables
-const seedCountVariableName = `COUNT_${baseName.toSnakeCase().toUpperCase()}S`;
+const seedCountVariableName = pluralize.plural(`COUNT_${baseName.toSnakeCase().toUpperCase()}`);
 const fkColumn = `${baseName}Id`;
 
 
