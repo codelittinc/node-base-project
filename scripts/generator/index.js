@@ -94,20 +94,23 @@ const downMigrationFile = fs.readFileSync(
 let downMigrationFileContent = handlebars.compile(downMigrationFile);
 
 // Templates processing
-modelFileContent = modelFileContent({modelName: modelName, table: table});
+modelFileContent = modelFileContent({
+    modelName,
+    table
+});
 
 downMigrationFileContent = downMigrationFileContent({
-    referenceTable: referenceTable,
-    constraint: constraint,
-    fkColumn: fkColumn,
-    table: table,
+    referenceTable,
+    constraint,
+    fkColumn,
+    table,
 });
 
 upMigrationFileContent = upMigrationFileContent({
-    referenceTable: referenceTable,
-    constraint: constraint,
-    fkColumn: fkColumn,
-    table: table,
+    referenceTable,
+    constraint,
+    fkColumn,
+    table,
 });
 
 // Generate files
