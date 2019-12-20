@@ -9,7 +9,7 @@ function capitalLetterFunc(){
 String.prototype.capitalizeFirstLetter = capitalLetterFunc;
 
 function lowerLetterFunc(){
-    return this.charAt(0).toLowerCase() + this.slice(1);
+    return `${this.charAt(0).toLowerCase()}${this.slice(1)}`;
 }
 String.prototype.lowerFirstLetter = lowerLetterFunc;
 
