@@ -29,7 +29,7 @@ async function cmdMigrateNext(umzug: Umzug) {
   if (result.pending.length === 0) {
     return Promise.reject(new Error('No pending migrations'));
   }
-  const next = result.pending[0].name;
+  const next = result.pending[0].file;
   return umzug.up({ to: next });
 }
 
@@ -39,7 +39,7 @@ async function cmdResetPrev(umzug: Umzug) {
   if (executed.length === 0) {
     return Promise.reject(new Error('Already at initial state'));
   }
-  const prev = executed[executed.length - 1].name;
+  const prev = executed[executed.length - 1].file;
   return umzug.down({ to: prev });
 }
 
