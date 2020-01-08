@@ -1,0 +1,9 @@
+BEGIN;
+
+ALTER TABLE "{{referenceTable}}" DROP CONSTRAINT {{constraint}};
+
+ALTER TABLE "{{referenceTable}}" DROP COLUMN "{{fkColumn}}";
+
+DROP TABLE "{{table}}";
+
+COMMIT;

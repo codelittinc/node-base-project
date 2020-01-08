@@ -1,0 +1,18 @@
+BEGIN;
+
+CREATE TABLE "{{table}}"
+(
+    "id" SERIAL PRIMARY KEY,
+    "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "name" VARCHAR UNIQUE NOT NULL
+);
+
+ALTER TABLE "{{referenceTable}}" ADD COLUMN "{{fkColumn}}" INTEGER;
+
+ALTER TABLE "{{referenceTable}}"
+    ADD CONSTRAINT {{constraint}}
+    FOREIGN KEY ("{{fkColumn}}")
+    REFERENCES "{{table}}" (id);
+
+COMMIT;

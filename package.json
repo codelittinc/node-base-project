@@ -69,6 +69,7 @@
     "lodash.isempty": "^4.4.0",
     "module-alias": "^2.2.2",
     "pg": "^7.12.1",
+    "pluralize": "^8.0.0",
     "sequelize": "^5.20.0",
     "swagger-ui-express": "^4.1.2",
     "umzug": "^2.2.0"
