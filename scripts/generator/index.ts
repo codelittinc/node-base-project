@@ -3,7 +3,7 @@ import { toCamelCase, toPascalCase, toSnakeCase } from './utils';
 import { plural } from 'pluralize';
 import { readFileSync, writeFile } from 'fs';
 
-function generate() {
+const generate = () => {
   // Get base model name and reference name from argument
   // TODO: Modular cli arguments based on flags
   if (process.argv.length < 4) {
@@ -174,6 +174,6 @@ public ${lowerModelName}?: ${modelName};
   task.file('tests/integration/setup/clearDB.ts');
   task.desc('add model to clearDB');
   task.code(`m.${modelName}`);
-}
+};
 
 generate();
