@@ -1,8 +1,8 @@
 import * as cmd from 'commander';
 import { Action, Options } from './action';
-import { Migration } from './commands/migration';
-import { Model } from './commands/model';
-import { Test } from './commands/test';
+import { Migration } from './actions/migration';
+import { Model } from './actions/model';
+import { Test } from './actions/test';
 
 cmd
   .version('0.0.1')
