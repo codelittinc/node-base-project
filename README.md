@@ -56,6 +56,10 @@ The full folder structure of this app is explained below:
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | **.vscode**                                      | Contains VS Code specific settings                                                         |
 | **dist**                                         | Contains the distributable (or output) from the TypeScript build. This is the code we ship |
+| **scripts**                                      | Contains handy scripts for managing the codebase                                           |
+| **scripts/db**                                   | Contains scripts allowing database management (seed, migrations, setup, etc...)
+| **scripts/docker**                               | Handy script allowing to start all the stack required to run the project in docker          |
+| **scripts/generator**                            | CLI application used to create and generate the base code for new models                   |
 | **src**                                          | Contains the source code                                                                   |
 | **src/config**                                   | Contains the project general configuration                                                 |
 | [**src/controllers**](src/controllers/README.md) | Controllers define functions that respond to various http requests                         |
@@ -235,6 +239,33 @@ az postgres server firewall-rule create --resource-group RESOURCE_GROUP --server
 ```
 
 As an example a stage could have all the access for all DEV databases and run this over multiple resources.
+
+## Generate a new model
+
+In order to generate a new model and avoid spending time in creating all the required files, we created a generator for it.
+
+To run it: `ts-node scripts/generator/index.ts [options] <name> <referenceName> [customMigrationFileName]`
+
+*Help section*
+```
+Usage: index.ts [options] <name> <referenceName> [customMigrationFileName]
+
+Generate all files necessary to create a new model 
+
+Options:
+  -V, --version  output the version number
+  --foreign      add this flag if your model uses constraints, based on referenceName
+  -h, --help     output usage information
+
+```
+
+### Improving the generator
+
+The generator is built with [commanderjs](https://github.com/tj/commander.js/) which allows us to easily add new commands and options as the need grows. 
+
+You can easily add a new action by adding a new Action in the `scripts/generator/actions` folder by extending the class
+functionality with `Action`, then simply add it the Action list in the `scripts/generator/index.js`. Feel free to see 
+what work best for your use case. 
 
 ## Built With
 
