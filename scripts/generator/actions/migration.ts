@@ -22,9 +22,6 @@ export class Migration extends Action {
     const constraint = `fk_${plural(toSnakeCase(this.baseName))}${plural(
       toSnakeCase(this.referenceModelName),
     )}`;
-    const fkColumn = this.fkColumn;
-    const table = this.table;
-    const useForeign = this.useForeign;
 
     // file name
     const migrationFileName = `./src/db/migrations/schema/${yyyymmdd}.${migration}`;
@@ -46,17 +43,17 @@ export class Migration extends Action {
     const downMigrationFileContentProcessed = downMigrationFileContent({
       referenceTable,
       constraint,
-      fkColumn,
-      table,
-      useForeign,
+      fkColumn: this.fkColumn,
+      table: this.table,
+      useForeign: this.useForeign,
     });
 
     const upMigrationFileContentProcessed = upMigrationFileContent({
       referenceTable,
       constraint,
-      fkColumn,
-      table,
-      useForeign,
+      fkColumn: this.fkColumn,
+      table: this.table,
+      useForeign: this.useForeign,
     });
 
     // generate files
@@ -84,7 +81,7 @@ export class Migration extends Action {
       },
     );
 
-    // manual
+    // manual tasks
     this.task.file('src/db/seeds/helpers/count.ts');
     this.task.desc('add export');
     this.task.code(`export const ${seedCountVariableName} = 100;`);

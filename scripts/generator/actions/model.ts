@@ -5,15 +5,13 @@ import * as mkdirp from 'mkdirp';
 
 export class Model extends Action {
   public do(): void {
-    const modelName = this.modelName;
-    const lowerModelName = this.baseName;
-    const table = this.table;
-
     // init
     mkdirp.sync(`./src/models/${this.referenceModelName.toLowerCase()}`);
 
     // file name
-    const modelFileName = `./src/models/${this.referenceModelName.toLowerCase()}/${modelName}Model.ts`;
+    const modelFileName = `./src/models/${this.referenceModelName.toLowerCase()}/${
+      this.modelName
+    }Model.ts`;
 
     // template
     const modelFile = readFileSync(
@@ -24,8 +22,8 @@ export class Model extends Action {
 
     // template processing
     const modelFileContentProcessed = modelFileContent({
-      modelName,
-      table,
+      modelName: this.modelName,
+      table: this.table,
     });
 
     writeFile(modelFileName, modelFileContentProcessed, err => {
@@ -40,30 +38,30 @@ export class Model extends Action {
     this.task.file('src/models/index.ts');
     this.task.desc('add export');
     this.task.code(
-      `export { ${modelName} } from './office/${modelName}Model';`,
+      `export { ${this.modelName} } from './office/${this.modelName}Model';`,
     );
 
     if (this.useForeign) {
       this.task.file(`src/models/${this.referenceModelName}Model.ts`);
       this.task.desc('add model import');
-      this.task.code(`import { ${modelName} } from '@models';`);
+      this.task.code(`import { ${this.modelName} } from '@models';`);
       this.task.desc('add properties');
       this.task.code(`public ${this.fkColumn}?: number;
-public ${lowerModelName}?: ${modelName};
+public ${this.baseName}?: ${this.modelName};
 `);
       this.task.desc('add column definition');
       this.task.code(`${this.fkColumn}: {
   type: DataTypes.INTEGER,
   allowNull: true,
   references: {
-    model: ${modelName},
+    model: ${this.modelName},
     key: 'id',
   },
 },`);
       this.task.desc('add belongsTo relation');
-      this.task.code(`${this.referenceModelName}.belongsTo(${modelName}, {
+      this.task.code(`${this.referenceModelName}.belongsTo(${this.baseName}, {
   foreignKey: '${this.fkColumn}',
-  as: '${lowerModelName}',
+  as: '${this.baseName}',
 });`);
     }
   }
