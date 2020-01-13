@@ -1,5 +1,5 @@
 BEGIN;
-{{#if referenceTable}}
+{{#if useForeign}}
 ALTER TABLE "{{referenceTable}}" DROP CONSTRAINT {{constraint}};
 
 ALTER TABLE "{{referenceTable}}" DROP COLUMN "{{fkColumn}}";

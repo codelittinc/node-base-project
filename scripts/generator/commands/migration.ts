@@ -24,6 +24,7 @@ export class Migration extends Action {
     )}`;
     const fkColumn = this.fkColumn;
     const table = this.table;
+    const useForeign = this.useForeign;
 
     // file name
     const migrationFileName = `./src/db/migrations/schema/${yyyymmdd}.${migration}`;
@@ -47,6 +48,7 @@ export class Migration extends Action {
       constraint,
       fkColumn,
       table,
+      useForeign,
     });
 
     const upMigrationFileContentProcessed = upMigrationFileContent({
@@ -54,6 +56,7 @@ export class Migration extends Action {
       constraint,
       fkColumn,
       table,
+      useForeign,
     });
 
     // generate files

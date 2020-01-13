@@ -7,7 +7,7 @@ CREATE TABLE "{{table}}"
     "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
     "name" VARCHAR UNIQUE NOT NULL
 );
-{{#if referenceTable}}
+{{#if useForeign}}
 ALTER TABLE "{{referenceTable}}" ADD COLUMN "{{fkColumn}}" INTEGER;
 
 ALTER TABLE "{{referenceTable}}"

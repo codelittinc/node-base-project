@@ -10,10 +10,7 @@ export class Model extends Action {
     const table = this.table;
 
     // init
-    mkdirp(`./src/models/${this.referenceModelName.toLowerCase()}`, err => {
-      this.log.err(`couldn't create a folder for the new model: ${err}`);
-      return;
-    });
+    mkdirp.sync(`./src/models/${this.referenceModelName.toLowerCase()}`);
 
     // file name
     const modelFileName = `./src/models/${this.referenceModelName.toLowerCase()}/${modelName}Model.ts`;
@@ -46,7 +43,7 @@ export class Model extends Action {
       `export { ${modelName} } from './office/${modelName}Model';`,
     );
 
-    if (this.referenceModelName) {
+    if (this.useForeign) {
       this.task.file(`src/models/${this.referenceModelName}Model.ts`);
       this.task.desc('add model import');
       this.task.code(`import { ${modelName} } from '@models';`);
