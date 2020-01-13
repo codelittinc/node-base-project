@@ -1,8 +1,9 @@
 BEGIN;
-
+{{#if referenceTable}}
 ALTER TABLE "{{referenceTable}}" DROP CONSTRAINT {{constraint}};
 
 ALTER TABLE "{{referenceTable}}" DROP COLUMN "{{fkColumn}}";
+{{/if}}
 
 DROP TABLE "{{table}}";
 

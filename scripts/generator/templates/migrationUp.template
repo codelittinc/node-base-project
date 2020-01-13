@@ -7,12 +7,13 @@ CREATE TABLE "{{table}}"
     "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
     "name" VARCHAR UNIQUE NOT NULL
 );
-
+{{#if referenceTable}}
 ALTER TABLE "{{referenceTable}}" ADD COLUMN "{{fkColumn}}" INTEGER;
 
 ALTER TABLE "{{referenceTable}}"
     ADD CONSTRAINT {{constraint}}
     FOREIGN KEY ("{{fkColumn}}")
     REFERENCES "{{table}}" (id);
+{{/if}}
 
 COMMIT;
