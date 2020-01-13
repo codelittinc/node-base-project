@@ -5,83 +5,79 @@
 
 trigger: none
 
+pool:
+  vmImage: 'ubuntu-latest'
+
 resources:
   containers:
     - container: postgres
       image: postgres
 
-jobs:
-  - job: Tests
-    displayName: unit and integration tests
+services:
+  postgres: postgres
 
-  pool:
-    vmImage: 'ubuntu-latest'
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
 
-  services:
-    postgres: postgres
+  - script: |
+      npm ci
+    displayName: 'npm install'
 
-  steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node.js'
+  - script: |
+      npm run build
+    displayName: 'npm build'
 
-    - script: |
-        npm ci
-      displayName: 'npm install'
+  - script: |
+      npm run lint
+      if [ $? -ne 0 ]; then
+        exit 1
+      fi
+    displayName: 'npm lint'
 
-    - script: |
-        npm run build
-      displayName: 'npm build'
+  - script: |
+      npm run test:unit:ci
+      if [ $? -ne 0 ]; then
+        exit 1
+      fi
+    displayName: 'npm test unit'
 
-    - script: |
-        npm run lint
-        if [ $? -ne 0 ]; then
-          exit 1
-        fi
-      displayName: 'npm lint'
+  - script: |
+      npm run db:create:test
+      if [ $? -ne 0 ]; then
+        exit 1
+      fi
+    displayName: 'npm db:create:test'
+    env:
+      DB_HOST: db
+      DB_DATABASE: node_api
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_SQLLOG: false
+      DB_SSL: false
+      DB_HOST_PORT: 5432
 
-    - script: |
-        npm run test:unit:ci
-        if [ $? -ne 0 ]; then
-          exit 1
-        fi
-      displayName: 'npm test unit'
+  - script: |
+      npm run test:integration:ci
+      if [ $? -ne 0 ]; then
+        exit 1
+      fi
+    displayName: 'npm test integration'
+    env:
+      DB_HOST: db
+      DB_DATABASE: node_api
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_SQLLOG: false
+      DB_SSL: false
+      DB_HOST_PORT: 5432
 
-    - script: |
-        npm run db:create:all
-        if [ $? -ne 0 ]; then
-          exit 1
-        fi
-      displayName: 'npm db:create:all'
-      env:
-        DB_HOST: db
-        DB_DATABASE: node_api
-        DB_USER: postgres
-        DB_PASSWORD: postgres
-        DB_SQLLOG: false
-        DB_SSL: false
-        DB_HOST_PORT: 5432
-
-    - script: |
-        npm run test:integration:ci
-        if [ $? -ne 0 ]; then
-          exit 1
-        fi
-      displayName: 'npm test integration'
-      env:
-        DB_HOST: db
-        DB_DATABASE: node_api
-        DB_USER: postgres
-        DB_PASSWORD: postgres
-        DB_SQLLOG: false
-        DB_SSL: false
-        DB_HOST_PORT: 5432
-
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '**/junit.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        mergeTestResults: true
-        testRunTitle: 'Publish result'
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/junit.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      mergeTestResults: true
+      testRunTitle: 'Publish result'
