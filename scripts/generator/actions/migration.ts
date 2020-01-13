@@ -66,9 +66,9 @@ export class Migration extends Action {
       err => {
         if (err) {
           this.log.err('unable to save DOWN migration');
-        } else {
-          this.log.line('written DOWN schema migration');
+          return;
         }
+        this.log.line('written DOWN schema migration');
       },
     );
 
@@ -78,9 +78,9 @@ export class Migration extends Action {
       err => {
         if (err) {
           this.log.err('unable to save UP migration');
-        } else {
-          this.log.line('written UP schema migration');
+          return;
         }
+        this.log.line('written UP schema migration');
       },
     );
 

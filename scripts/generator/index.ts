@@ -1,5 +1,6 @@
 import * as cmd from 'commander';
-import { Action, Options } from './action';
+import { Action } from './action';
+import { Options } from './interfaces';
 import { Migration } from './actions/migration';
 import { Model } from './actions/model';
 import { Test } from './actions/test';
@@ -23,7 +24,7 @@ cmd
         name: name,
         referenceName: referenceName,
         customMigrationFileName: customMigrationFileName,
-        userForeign: !!cmdOpts.foreign,
+        useForeign: !!cmdOpts.foreign,
       };
 
       const actions: Action[] = [

@@ -31,9 +31,9 @@ export class Model extends Action {
     writeFile(modelFileName, modelFileContentProcessed, err => {
       if (err) {
         this.log.err('unable to save model file');
-      } else {
-        this.log.line('written model file');
+        return;
       }
+      this.log.line('written model file');
     });
 
     // manual tasks

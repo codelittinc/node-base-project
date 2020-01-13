@@ -1,12 +1,6 @@
 import { toCamelCase, toPascalCase } from './utils';
 import { plural } from 'pluralize';
-
-export interface Options {
-  name: string;
-  referenceName: string;
-  customMigrationFileName?: string;
-  userForeign?: boolean;
-}
+import { Options } from './interfaces';
 
 export abstract class Action {
   protected baseName;
@@ -32,7 +26,7 @@ export abstract class Action {
     this.baseName = toCamelCase(opts.name);
     this.referenceModelName = opts.referenceName;
     this.migrationFileName = opts.customMigrationFileName;
-    this.useForeign = opts.userForeign;
+    this.useForeign = opts.useForeign;
     this.table = plural(this.baseName);
     this.fkColumn = plural(this.baseName);
     this.modelName = toPascalCase(this.baseName);
