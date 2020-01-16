@@ -28,13 +28,19 @@ abstract class BaseModel extends Model {
     id: number,
     options?: FindOptions | undefined,
   ): Promise<any | null> {
-    return await (this as any).findByPk(id, options || this.getFindOptions());
+    return (this as any).findByPk(id, {
+      ...this.getFindOptions(),
+      ...(options || {}),
+    });
   }
 
   public static async getAll(
     options?: FindOptions | undefined,
   ): Promise<any[]> {
-    return await (this as any).findAll(options || this.getFindOptions());
+    return (this as any).findAll({
+      ...this.getFindOptions(),
+      ...(options || {}),
+    });
   }
 
   public static getFindOptions(): FindOptions {
