@@ -15,5 +15,4 @@ RUN npm install
 ADD ./ /share
 
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV SERVER_PORT=9090
 EXPOSE ${SERVER_PORT}
